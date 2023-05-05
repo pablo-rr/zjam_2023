@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://cthapkmnxl3ry"]
+
+[sub_resource type="GDScript" id="GDScript_mact1"]
+script/source = "extends Node2D
+
+@onready var x : float = 10.0
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	x = move_toward(x, 0, delta)
+	print(x)
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_mact1")

@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://nbj7qkmin0o8"]
+[gd_scene load_steps=10 format=3 uid="uid://nbj7qkmin0o8"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_dnyhb"]
 [ext_resource type="Texture2D" uid="uid://deok0vwhe4sic" path="res://Art/2D/Player.png" id="2_axwuq"]
+[ext_resource type="Script" path="res://Addons/PawnFunctionality/StaminaSystem.gd" id="3_vrlnq"]
+[ext_resource type="Script" path="res://Addons/PawnFunctionality/HealthSystem.gd" id="4_vlpak"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wwvd"]
 size = Vector2(31, 39)
@@ -75,3 +77,18 @@ hframes = 4
 libraries = {
 "": SubResource("AnimationLibrary_cksyf")
 }
+
+[node name="StaminaSystem" type="Node" parent="."]
+script = ExtResource("3_vrlnq")
+time_to_regen = 99999.0
+regen_interval = 0.1
+waste_interval = 30.0
+
+[node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
+script = ExtResource("4_vlpak")
+max_health = 3
+invulnerable_on_damage = true
+blink_node = NodePath("../Sprite2D")
+hit_blinks = 6
+
+[connection signal="wasted" from="StaminaSystem" to="." method="_on_stamina_system_wasted"]
