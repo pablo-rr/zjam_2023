@@ -1,7 +1,21 @@
-[gd_scene load_steps=7 format=3 uid="uid://dbicdai4cc2ar"]
+[gd_scene load_steps=9 format=3 uid="uid://dbicdai4cc2ar"]
 
 [ext_resource type="Shader" path="res://Shaders/2D/ShineHighlight.gdshader" id="1_utxel"]
 [ext_resource type="Texture2D" uid="uid://ckl3vuvx4fudh" path="res://Art/2D/Spike.png" id="2_dr2on"]
+
+[sub_resource type="GDScript" id="GDScript_pfg3d"]
+script/source = "extends Area2D
+
+
+
+func _on_body_entered(body: Node2D) -> void:
+	if(body.name == \"Player\"):
+		body.get_node(\"HealthSystem\").damage(1)
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xt7vc"]
+radius = 6.0
+height = 20.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uy0bl"]
 shader = ExtResource("1_utxel")
@@ -47,8 +61,11 @@ _data = {
 }
 
 [node name="Spikes" type="Area2D"]
+script = SubResource("GDScript_pfg3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("CapsuleShape2D_xt7vc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_uy0bl")
@@ -58,3 +75,5 @@ texture = ExtResource("2_dr2on")
 libraries = {
 "": SubResource("AnimationLibrary_11aua")
 }
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://bk5dnp8djg5h7"]
+[gd_scene load_steps=7 format=3 uid="uid://bk5dnp8djg5h7"]
 
 [ext_resource type="Texture2D" uid="uid://dyttttdnpv68n" path="res://icon.svg" id="1_cee1i"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/PawnProgressBar.gd" id="1_me4ac"]
 [ext_resource type="PackedScene" uid="uid://nbj7qkmin0o8" path="res://Scenes/Player/player.tscn" id="2_etgsf"]
 [ext_resource type="Script" path="res://Addons/Camera/Camera2DFollowNode.gd" id="3_457b3"]
+[ext_resource type="PackedScene" uid="uid://dbicdai4cc2ar" path="res://Scenes/Props/spikes.tscn" id="5_guims"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_urhih"]
 size = Vector2(1305, 133)
@@ -65,3 +66,6 @@ zoom = Vector2(3, 3)
 script = ExtResource("3_457b3")
 target = NodePath("../Player")
 speed = 0.16
+
+[node name="Spikes" parent="." instance=ExtResource("5_guims")]
+position = Vector2(862, 540)
