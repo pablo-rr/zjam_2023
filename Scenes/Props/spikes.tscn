@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://dbicdai4cc2ar"]
+
+[ext_resource type="Shader" path="res://Shaders/2D/ShineHighlight.gdshader" id="1_utxel"]
+[ext_resource type="Texture2D" uid="uid://ckl3vuvx4fudh" path="res://Art/2D/Spike.png" id="2_dr2on"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uy0bl"]
+shader = ExtResource("1_utxel")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.03
+shader_parameter/shine_angle = 63.7
+
+[sub_resource type="Animation" id="Animation_do1pr"]
+resource_name = "Spike"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.6, -0.25, 0, 0.25, 0, 0.15, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5)
+}
+
+[sub_resource type="Animation" id="Animation_0sqdq"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_11aua"]
+_data = {
+"RESET": SubResource("Animation_0sqdq"),
+"Spike": SubResource("Animation_do1pr")
+}
+
+[node name="Spikes" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_uy0bl")
+texture = ExtResource("2_dr2on")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_11aua")
+}
