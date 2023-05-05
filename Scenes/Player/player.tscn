@@ -1,16 +1,77 @@
-[gd_scene load_steps=4 format=3 uid="uid://nbj7qkmin0o8"]
+[gd_scene load_steps=8 format=3 uid="uid://nbj7qkmin0o8"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_dnyhb"]
-[ext_resource type="Texture2D" uid="uid://dyttttdnpv68n" path="res://icon.svg" id="1_qo8wj"]
+[ext_resource type="Texture2D" uid="uid://deok0vwhe4sic" path="res://Art/2D/Player.png" id="2_axwuq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wwvd"]
 size = Vector2(130, 130)
+
+[sub_resource type="Animation" id="Animation_k1a0e"]
+resource_name = "Walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 0]
+}
+
+[sub_resource type="Animation" id="Animation_j31y3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_u2oyi"]
+resource_name = "Idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cksyf"]
+_data = {
+"Idle": SubResource("Animation_u2oyi"),
+"RESET": SubResource("Animation_j31y3"),
+"Walk": SubResource("Animation_k1a0e")
+}
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dnyhb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(6, 39)
 shape = SubResource("RectangleShape2D_5wwvd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_qo8wj")
+texture = ExtResource("2_axwuq")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cksyf")
+}
