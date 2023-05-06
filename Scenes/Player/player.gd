@@ -28,11 +28,14 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _input(event: InputEvent) -> void:
 	if(Input.is_action_pressed("ui_charge_energy") and is_on_floor()):
 		charging_energy = true
+		$ChargingEnergy.play(0.0)
 	elif(Input.is_action_just_released("ui_charge_energy")):
+		$ChargingEnergy.stop()
 		charging_energy = false
 		
 	if(Input.is_action_pressed("ui_shoot")):
 		if($StaminaSystem.stamina >= projectile_energy):
+			$Shoot.play(0.0)
 			var projectile_instance : CharacterBody2D = projectile.instantiate()
 			projectile_instance.position = position
 			projectile_instance.direction = last_direction
@@ -59,6 +62,7 @@ func _physics_process(delta: float) -> void:
 		
 
 	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
+		$Jump.play(0.0)
 		energy_to_regen = 0.0
 		velocity.y = jump_force - jump_force_extra
 		jump_force_extra = delta * jump_force_extra_fill
@@ -71,8 +75,10 @@ func _physics_process(delta: float) -> void:
 				$StaminaSystem.waste(delta * energy_charge_fill)
 			jump_force_extra += delta * jump_force_extra_fill
 		else:
+			$ChargingEnergy.pitch_scale = 1.5
 			$TotallyCharged.emitting = true
 	else:
+		$ChargingEnergy.pitch_scale = 1.0
 		$ChargingUp.emitting = false
 		$TotallyCharged.emitting = false
 		if(!external_subtracting_energy):
@@ -101,3 +107,7 @@ func _physics_process(delta: float) -> void:
 
 func _on_stamina_system_wasted(ammount) -> void:
 	energy_to_regen += ammount
+
+
+func _on_health_system_damaged(ammount) -> void:
+	$ReceiveDamage.play(0.0)

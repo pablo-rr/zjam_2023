@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://nbj7qkmin0o8"]
+[gd_scene load_steps=19 format=3 uid="uid://nbj7qkmin0o8"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_dnyhb"]
 [ext_resource type="Texture2D" uid="uid://deok0vwhe4sic" path="res://Art/2D/Player.png" id="2_axwuq"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/StaminaSystem.gd" id="3_vrlnq"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/HealthSystem.gd" id="4_vlpak"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/DamageModulator2D.gd" id="5_y8qkv"]
+[ext_resource type="AudioStream" uid="uid://djres7ppd1dt3" path="res://Art/Audio/SFX/Jugador.wav" id="7_secb8"]
+[ext_resource type="AudioStream" uid="uid://coju13yxk6j82" path="res://Art/Audio/SFX/sfx_damage_hit10.wav" id="7_trfu4"]
+[ext_resource type="AudioStream" uid="uid://dvd70qtr6ws72" path="res://Art/Audio/SFX/sfx_menu_move3.wav" id="9_vjmjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wwvd"]
 size = Vector2(31, 39)
@@ -150,4 +153,16 @@ scale_amount_curve = SubResource("Curve_unb6y")
 color = Color(0.882353, 0.784314, 0, 1)
 color_ramp = SubResource("Gradient_71fq5")
 
+[node name="ReceiveDamage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_trfu4")
+
+[node name="Shoot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_secb8")
+
+[node name="Jump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_vjmjb")
+
+[node name="ChargingEnergy" type="AudioStreamPlayer" parent="."]
+
 [connection signal="wasted" from="StaminaSystem" to="." method="_on_stamina_system_wasted"]
+[connection signal="damaged" from="HealthSystem" to="." method="_on_health_system_damaged"]
