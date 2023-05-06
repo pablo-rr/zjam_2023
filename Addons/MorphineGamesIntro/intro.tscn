@@ -11,6 +11,14 @@ script/source = "extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimationPlayer.play(\"intro\")
+	
+	
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if(anim_name == \"intro\"):
+		SceneTransitioner.transition_to_scene(\"res://Scenes/Menus/Menu.tscn\")
+	pass # Replace with function body.
 "
 
 [sub_resource type="Animation" id="Animation_u4pnd"]
@@ -205,3 +213,5 @@ libraries = {
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_vspvk")
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
