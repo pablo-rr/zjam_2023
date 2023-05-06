@@ -49,6 +49,7 @@ texture = ExtResource("4_aog3f")
 centered = false
 
 [node name="Tower" type="ParallaxLayer" parent="."]
+position = Vector2(0, -40)
 motion_scale = Vector2(0.4, 0.1)
 motion_mirroring = Vector2(460.8, 0)
 
@@ -69,6 +70,7 @@ texture = ExtResource("7_q5o86")
 centered = false
 
 [node name="Church" type="ParallaxLayer" parent="."]
+position = Vector2(0, -78)
 motion_scale = Vector2(0.8, 0.2)
 motion_offset = Vector2(0, 60)
 motion_mirroring = Vector2(460.8, 0)

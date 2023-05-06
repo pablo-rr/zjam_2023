@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://birlfs7ivps7d"]
+[gd_scene load_steps=16 format=3 uid="uid://birlfs7ivps7d"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/EnemyController.gd" id="1_36yhy"]
-[ext_resource type="Texture2D" uid="uid://dyttttdnpv68n" path="res://icon.svg" id="2_1ud82"]
+[ext_resource type="Texture2D" uid="uid://c7jmcni0ln2ew" path="res://Art/2D/Spider.png" id="2_763uw"]
+[ext_resource type="Script" path="res://Addons/PawnFunctionality/HealthSystem.gd" id="3_1ogau"]
+[ext_resource type="Shader" path="res://Shaders/2D/ShineHighlight.gdshader" id="3_3md2x"]
+[ext_resource type="Texture2D" uid="uid://b03t1xe8gh82u" path="res://Art/2D/SpiderButton.png" id="3_8x64x"]
 
 [sub_resource type="GDScript" id="GDScript_3orcb"]
 script/source = "extends CharacterBody2D
@@ -11,6 +14,10 @@ const SPEED = 120.0
 var gravity: int = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 
 @onready var direction : int = 1
+
+func _ready() -> void:
+	$AnimationPlayer.play(\"Run\")
+	$AnimationPlayer2.play(\"new_animation\")
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -26,6 +33,91 @@ func _physics_process(delta: float) -> void:
 radius = 16.0
 height = 64.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tblr0"]
+shader = ExtResource("3_3md2x")
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyrkv"]
+size = Vector2(68, 29)
+
+[sub_resource type="Animation" id="Animation_dp5os"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_3iqwo"]
+resource_name = "Run"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nlc2d"]
+_data = {
+"RESET": SubResource("Animation_dp5os"),
+"Run": SubResource("Animation_3iqwo")
+}
+
+[sub_resource type="Animation" id="Animation_h2wd4"]
+resource_name = "new_animation"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0.42, -0.25, 0, 0.25, 0, 0.9, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7)
+}
+
+[sub_resource type="Animation" id="Animation_bh6xq"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D2:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r51w6"]
+_data = {
+"RESET": SubResource("Animation_bh6xq"),
+"new_animation": SubResource("Animation_h2wd4")
+}
+
 [node name="EnemyStomp" type="CharacterBody2D"]
 script = SubResource("GDScript_3orcb")
 
@@ -33,10 +125,14 @@ script = SubResource("GDScript_3orcb")
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_k7w4c")
 
-[node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("fall_raycast", "wall_raycast")]
+[node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("fall_raycast", "wall_raycast", "player_collision_area", "sprite", "health_system")]
 script = ExtResource("1_36yhy")
 fall_raycast = NodePath("../RayCast2D")
 wall_raycast = NodePath("../RayCast2D2")
+player_collision_area = NodePath("../Area2D")
+sprite = NodePath("../Sprite2D")
+health_system = NodePath("../HealthSystem")
+damage_on_stomp = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(16, 16)
@@ -49,10 +145,36 @@ target_position = Vector2(0, 16)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(9.53674e-07, 0)
-scale = Vector2(0.5, 0.2)
-texture = ExtResource("2_1ud82")
+texture = ExtResource("2_763uw")
+flip_h = true
+hframes = 2
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
-position = Vector2(16, 0)
-scale = Vector2(0.25, 0.2)
-texture = ExtResource("2_1ud82")
+material = SubResource("ShaderMaterial_tblr0")
+position = Vector2(9.53674e-07, 0)
+texture = ExtResource("3_8x64x")
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_oyrkv")
+
+[node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
+script = ExtResource("3_1ogau")
+max_health = 1
+heal_when_invulnerable = false
+blink_node = NodePath("../Sprite2D")
+hit_blinks = 0
+invulnerable_while_blinking = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_nlc2d")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r51w6")
+}
