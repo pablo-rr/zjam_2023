@@ -8,6 +8,7 @@ extends CharacterBody2D
 @export var projectile_energy : int = 5
 @export var energy_charge_fill : float = 0.5
 @export var max_energy_charge : float = 30.0
+@export var max_power_up_time : float = 10.0
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -16,11 +17,13 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var time_charging_jump : float = 0.0
 @onready var charging_energy : bool = false
 @onready var acceleration_modifier : float = 0.0
-@onready var last_direction : float = 0.0
+@onready var last_direction : float = 1.0
 @onready var speed : float = 0.0
 @onready var energy_to_regen : float = 0.0
 @onready var external_subtracting_energy : bool = false
 @onready var projectile : PackedScene = preload("res://Scenes/Player/player_projectile.tscn")
+@onready var infinite_energy : bool = true
+@onready var power_up_time : float = 0.0
 
 func _input(event: InputEvent) -> void:
 	if(Input.is_action_pressed("ui_charge_energy") and is_on_floor()):
@@ -38,9 +41,22 @@ func _input(event: InputEvent) -> void:
 			print($StaminaSystem.stamina)
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
+	power_up_time -= delta
+	if(power_up_time > 0.0):
+		infinite_energy = true
+	else:
+		infinite_energy = false
+
 	if not is_on_floor():
 		velocity.y += gravity * delta
+		
+	if(infinite_energy):
+		energy_charge_fill = 1.0
+		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.46, 0.5))
+	else:
+		energy_charge_fill = 0.5
+		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.0, 0.5))
+		
 
 	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 		energy_to_regen = 0.0
@@ -51,7 +67,8 @@ func _physics_process(delta: float) -> void:
 	if(charging_energy):
 		$ChargingUp.emitting = true
 		if($StaminaSystem.stamina > 0 and energy_to_regen < max_energy_charge):
-			$StaminaSystem.waste(delta * energy_charge_fill)
+			if(!infinite_energy):
+				$StaminaSystem.waste(delta * energy_charge_fill)
 			jump_force_extra += delta * jump_force_extra_fill
 		else:
 			$TotallyCharged.emitting = true
