@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://oiv07defqlk7"]
 
 [sub_resource type="GDScript" id="GDScript_avhkv"]
-script/source = "extends Control
+script/source = "extends CanvasLayer
 
 enum Transitions{
 	FADE_IN = 0
@@ -67,20 +67,12 @@ func transition(time : float = 0.6, black_time : float = 0.35) -> void:
 			)
 "
 
-[node name="SceneTransitioner" type="Control"]
+[node name="SceneTransitioner" type="CanvasLayer"]
 visible = false
-z_index = 4096
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = SubResource("GDScript_avhkv")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 modulate = Color(1, 1, 1, 0)
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
