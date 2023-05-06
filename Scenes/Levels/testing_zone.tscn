@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dbicdai4cc2ar" path="res://Scenes/Props/spikes.tscn" id="5_guims"]
 [ext_resource type="PackedScene" uid="uid://12ly43on8v6h" path="res://Scenes/Scenery/tile_map.tscn" id="6_2xwfw"]
 [ext_resource type="PackedScene" uid="uid://dpdlv42m2i7t8" path="res://Scenes/Props/electricity.tscn" id="6_6tsnf"]
-[ext_resource type="PackedScene" uid="uid://di4y6rw425mmm" path="res://Scenes/Props/battery_small.tscn" id="7_evwf8"]
-[ext_resource type="PackedScene" uid="uid://qmqfagr13v2n" path="res://Scenes/Props/battery_power_up.tscn" id="8_m78jc"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/battery_small.tscn" id="7_evwf8"]
+[ext_resource type="PackedScene" path="res://Scenes/Props/battery_power_up.tscn" id="8_m78jc"]
 
 [node name="TestingZone" type="Node2D"]
 
