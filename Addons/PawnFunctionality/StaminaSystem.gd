@@ -10,7 +10,7 @@ signal stamina_changed(new_stamina : float)
 
 @export_range(1, 1000000) var max_stamina : int = 100
 @export_range(0.1, 99999) var time_to_regen : float = 2.0
-@export_range(0.1, 5000) var regen_interval : float = 20.0
+@export_range(0.0, 5000) var regen_interval : float = 20.0
 @export_range(0.1, 5000) var waste_interval : float = 40.0
 @onready var stamina : float = max_stamina
 @onready var time_since_waste : float = time_to_regen
@@ -39,6 +39,11 @@ func regen(delta : float) -> void:
 func add_stamina(ammount : float) -> void:
 	stamina += ammount
 	emit_signal("restored", ammount)
+	emit_signal("stamina_changed", stamina)
+	
+func subtract_stamina(ammount : float) -> void:
+	stamina -= ammount
+#	emit_signal("wasted", ammount)
 	emit_signal("stamina_changed", stamina)
 	
 	

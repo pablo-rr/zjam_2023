@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkj3crajbhunj"]
+
+[ext_resource type="Texture2D" uid="uid://baa2aksdiahqx" path="res://Art/2D/PlayerProjectile.png" id="1_8ma8c"]
+
+[sub_resource type="GDScript" id="GDScript_2n2cr"]
+script/source = "extends CharacterBody2D
+
+@export var speed : float = 400.0
+@export var damage : int = 1
+var direction : int = 0
+
+func _physics_process(delta: float) -> void:
+	velocity.x = direction * speed
+	move_and_slide()
+	
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if(\"Enemy\" in body.name or \"Interactuable\" in body.name):
+		body.get_node(\"HealthSystem\").damage(damage)
+"
+
+[sub_resource type="Curve" id="Curve_2dlr0"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.755853, -2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mww3f"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.658863, 0.872727), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vceo6"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0awp2"]
+radius = 5.09902
+
+[node name="PlayerProjectile" type="CharacterBody2D"]
+script = SubResource("GDScript_2n2cr")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+amount = 60
+lifetime = 0.7
+emission_shape = 1
+emission_sphere_radius = 3.0
+gravity = Vector2(0, 0)
+radial_accel_curve = SubResource("Curve_2dlr0")
+scale_amount_curve = SubResource("Curve_mww3f")
+color = Color(0.321569, 0.768627, 1, 1)
+color_ramp = SubResource("Gradient_vceo6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8ma8c")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_0awp2")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

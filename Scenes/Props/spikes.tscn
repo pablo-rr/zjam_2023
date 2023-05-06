@@ -6,7 +6,8 @@
 [sub_resource type="GDScript" id="GDScript_pfg3d"]
 script/source = "extends Area2D
 
-
+func _ready() -> void:
+	$AnimationPlayer.play(\"Spike\")
 
 func _on_body_entered(body: Node2D) -> void:
 	if(body.name == \"Player\"):
@@ -64,11 +65,12 @@ _data = {
 script = SubResource("GDScript_pfg3d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_xt7vc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_uy0bl")
+position = Vector2(0, -16)
 texture = ExtResource("2_dr2on")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

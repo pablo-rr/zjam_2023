@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://nbj7qkmin0o8"]
+[gd_scene load_steps=14 format=3 uid="uid://nbj7qkmin0o8"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_dnyhb"]
 [ext_resource type="Texture2D" uid="uid://deok0vwhe4sic" path="res://Art/2D/Player.png" id="2_axwuq"]
@@ -63,8 +63,23 @@ _data = {
 "Walk": SubResource("Animation_k1a0e")
 }
 
+[sub_resource type="Curve" id="Curve_dmci2"]
+min_value = -3.0
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, 0.0, 0, 0, Vector2(0.525084, -3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_unb6y"]
+max_value = 2.0
+_data = [Vector2(0, 2), 0.0, 0.0, 0, 0, Vector2(0.658863, 0.872727), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_71fq5"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dnyhb")
+jump_force_extra_fill = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1.5, 0.5)
@@ -82,7 +97,7 @@ libraries = {
 [node name="StaminaSystem" type="Node" parent="."]
 script = ExtResource("3_vrlnq")
 time_to_regen = 99999.0
-regen_interval = 0.1
+regen_interval = 0.0
 waste_interval = 30.0
 
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
@@ -97,5 +112,33 @@ script = ExtResource("5_y8qkv")
 health_system = NodePath("../HealthSystem")
 node_to_modulate = NodePath("../Sprite2D")
 sync_with_blinking = true
+
+[node name="ChargingUp" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 50
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 15)
+gravity = Vector2(0, 0)
+radial_accel_min = 60.0
+radial_accel_max = 60.0
+radial_accel_curve = SubResource("Curve_dmci2")
+scale_amount_curve = SubResource("Curve_unb6y")
+color = Color(0, 0.768627, 1, 1)
+color_ramp = SubResource("Gradient_71fq5")
+
+[node name="TotallyCharged" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 150
+local_coords = true
+emission_shape = 3
+emission_rect_extents = Vector2(15, 15)
+gravity = Vector2(0, 0)
+radial_accel_min = 60.0
+radial_accel_max = 60.0
+radial_accel_curve = SubResource("Curve_dmci2")
+scale_amount_curve = SubResource("Curve_unb6y")
+color = Color(0, 0.768627, 1, 1)
+color_ramp = SubResource("Gradient_71fq5")
 
 [connection signal="wasted" from="StaminaSystem" to="." method="_on_stamina_system_wasted"]

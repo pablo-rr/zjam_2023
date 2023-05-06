@@ -1,6 +1,35 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpdlv42m2i7t8"]
+[gd_scene load_steps=10 format=3 uid="uid://dpdlv42m2i7t8"]
 
 [ext_resource type="Texture2D" uid="uid://b501igbtmn4ei" path="res://Art/2D/Electricity.png" id="2_7ap64"]
+
+[sub_resource type="GDScript" id="GDScript_e46sg"]
+script/source = "extends Area2D
+
+@export var damage : float = 2.0
+
+var player : Node2D = null
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$AnimationPlayer.play(\"Ray\")
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if(player != null):
+		player.get_node(\"StaminaSystem\").waste(delta * damage)
+
+func _on_body_entered(body: Node2D) -> void:
+	if(body.name == \"Player\"):
+		player = body
+		player.external_subtracting_energy = true
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if(body.name == \"Player\"):
+		player.external_subtracting_energy = true
+		player = null
+"
 
 [sub_resource type="Curve" id="Curve_le0dx"]
 min_value = -2.0
@@ -32,7 +61,7 @@ tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 1.2, 1.4, 2, 2.2, 2.4, 2.8, 2.95, 3.1, 4, 4.2, 6.8, 7)
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 1.8, 2.2, 2.6, 2.8, 3.1, 3.4, 4, 4.2, 6.8, 7)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
@@ -43,7 +72,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 1.2, 1.4, 2, 2.2, 2.4, 2.8, 2.95, 3.1, 4, 4.2, 6.8, 7)
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 1.8, 2.2, 2.6, 2.8, 3.1, 3.4, 4, 4.2, 6.8, 7)
 }
 tracks/2/type = "bezier"
 tracks/2/imported = false
@@ -54,7 +83,7 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 1.2, 1.4, 2, 2.2, 2.4, 2.8, 2.95, 3.1, 4, 4.2, 6.8, 7)
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 1.8, 2.2, 2.6, 2.8, 3.1, 3.4, 4, 4.2, 6.8, 7)
 }
 tracks/3/type = "bezier"
 tracks/3/imported = false
@@ -65,7 +94,7 @@ tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 "points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.25098, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.25098, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0.25098, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1, 1.2, 1.4, 2, 2.2, 2.4, 2.8, 2.95, 3.1, 4, 4.2, 6.8, 7)
+"times": PackedFloat32Array(0, 0.8, 1.2, 1.6, 1.8, 2.2, 2.6, 2.8, 3.1, 3.4, 4, 4.2, 6.8, 7)
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -135,7 +164,7 @@ tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 tracks/4/type = "value"
@@ -170,6 +199,7 @@ _data = {
 }
 
 [node name="Electricity" type="Area2D"]
+script = SubResource("GDScript_e46sg")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 emitting = false
@@ -190,10 +220,12 @@ visible = false
 shape = SubResource("RectangleShape2D_nxisp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0)
 texture = ExtResource("2_7ap64")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_edrql")
 }
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
