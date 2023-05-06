@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8wftil8ays8j"
+path="res://.godot/imported/City ambience Sound effect.mp3-96100e19d9ebe90c820c011fe54346ae.mp3str"
+
+[deps]
+
+source_file="res://Art/Audio/SFX/City ambience Sound effect.mp3"
+dest_files=["res://.godot/imported/City ambience Sound effect.mp3-96100e19d9ebe90c820c011fe54346ae.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4
