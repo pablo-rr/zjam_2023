@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://birlfs7ivps7d"]
+
+[ext_resource type="Script" path="res://Scenes/Enemies/EnemyController.gd" id="1_36yhy"]
+[ext_resource type="Texture2D" uid="uid://dyttttdnpv68n" path="res://icon.svg" id="2_1ud82"]
+
+[sub_resource type="GDScript" id="GDScript_3orcb"]
+script/source = "extends CharacterBody2D
+
+const SPEED = 120.0
+
+var gravity: int = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
+
+@onready var direction : int = 1
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y += gravity * delta
+
+	velocity.x = direction * SPEED
+
+	move_and_slide()
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k7w4c"]
+radius = 16.0
+height = 64.0
+
+[node name="EnemyStomp" type="CharacterBody2D"]
+script = SubResource("GDScript_3orcb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_k7w4c")
+
+[node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("fall_raycast", "wall_raycast")]
+script = ExtResource("1_36yhy")
+fall_raycast = NodePath("../RayCast2D")
+wall_raycast = NodePath("../RayCast2D2")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(16, 16)
+target_position = Vector2(0, 16)
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+position = Vector2(32, 0)
+rotation = -1.57079
+target_position = Vector2(0, 16)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(9.53674e-07, 0)
+scale = Vector2(0.5, 0.2)
+texture = ExtResource("2_1ud82")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(16, 0)
+scale = Vector2(0.25, 0.2)
+texture = ExtResource("2_1ud82")

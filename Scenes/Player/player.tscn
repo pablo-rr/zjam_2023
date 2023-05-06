@@ -86,6 +86,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_dnyhb")
+max_speed = 175.0
 jump_force_extra_fill = 150.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -146,7 +147,7 @@ radial_accel_min = 60.0
 radial_accel_max = 60.0
 radial_accel_curve = SubResource("Curve_dmci2")
 scale_amount_curve = SubResource("Curve_unb6y")
-color = Color(0, 0.768627, 1, 1)
+color = Color(0.882353, 0.784314, 0, 1)
 color_ramp = SubResource("Gradient_71fq5")
 
 [connection signal="wasted" from="StaminaSystem" to="." method="_on_stamina_system_wasted"]
