@@ -1,0 +1,668 @@
+[gd_scene load_steps=24 format=3 uid="uid://hswleah07eoa"]
+
+[ext_resource type="FontFile" uid="uid://c87juobiqnyh0" path="res://Resources/Fonts/PixelEmulator-xq08.ttf" id="1_7ol7y"]
+[ext_resource type="Texture2D" uid="uid://doex0jwskoqyh" path="res://Art/2D/Fondo.png" id="2_s7tcd"]
+[ext_resource type="Texture2D" uid="uid://xfj3xi4ugu48" path="res://Art/2D/Estrellas.png" id="3_81s2m"]
+[ext_resource type="Shader" path="res://Shaders/2D/MovingRainbow.gdshader" id="3_nlr52"]
+[ext_resource type="Texture2D" uid="uid://ch8eqqd83dnfc" path="res://Art/2D/Luna.png" id="4_ad0y5"]
+[ext_resource type="Texture2D" uid="uid://cdaduxigtic1j" path="res://Art/2D/Crack.png" id="4_rca8n"]
+[ext_resource type="Texture2D" uid="uid://ciuf3sxuhkbav" path="res://Art/2D/Nubes.png" id="5_dan3i"]
+[ext_resource type="AudioStream" uid="uid://gormvyjpoeft" path="res://Art/Audio/SFX/Robo.wav" id="5_jc44m"]
+[ext_resource type="Texture2D" uid="uid://bqgjpp3rwiu81" path="res://Art/2D/TorreSenal.png" id="6_isb5j"]
+[ext_resource type="AudioStream" uid="uid://dm05ie0xoed6f" path="res://Art/Audio/SFX/BreakingGlass.mp3" id="6_qxr3p"]
+[ext_resource type="AudioStream" uid="uid://da17ijg4ra2v1" path="res://Art/Audio/Music/TitleScreen.wav" id="7_1ae3h"]
+[ext_resource type="Texture2D" uid="uid://dts62vavlc5ht" path="res://Art/2D/Iglesia.png" id="7_fnob0"]
+[ext_resource type="Texture2D" uid="uid://cqhdyxosfckt8" path="res://Art/2D/ROBO2.png" id="8_0e2b2"]
+
+[sub_resource type="GDScript" id="GDScript_atnha"]
+script/source = "extends Node2D
+
+func _input(event: InputEvent) -> void:
+	if(event is InputEventMouseMotion):
+		$Camera2D.global_position = event.position/10
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$CanvasLayer/Control/BT_Play/AnimationPlayer.play(\"pop\")
+	await(get_tree().create_timer(1).timeout)
+	$CanvasLayer/Control/RoboCrack/AnimationPlayer.play(\"CrackFall\")
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="GDScript" id="GDScript_tcvgd"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_pressed() -> void:
+	SceneTransitioner.transition_to_scene(\"res://scenes/levels/testing_zone.tscn\")
+	pass # Replace with function body.
+"
+
+[sub_resource type="Animation" id="Animation_ih4mp"]
+resource_name = "pop"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.2, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.2, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
+[sub_resource type="Animation" id="Animation_y34a5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_suxaj"]
+_data = {
+"RESET": SubResource("Animation_y34a5"),
+"pop": SubResource("Animation_ih4mp")
+}
+
+[sub_resource type="GDScript" id="GDScript_qro4p"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_pressed() -> void:
+	get_tree().quit()
+	pass # Replace with function body.
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_702c7"]
+shader = ExtResource("3_nlr52")
+shader_parameter/strength = 0.7
+shader_parameter/speed = 2.0
+shader_parameter/angle = 149.663
+
+[sub_resource type="Animation" id="Animation_2v263"]
+resource_name = "CrackFall"
+length = 3.0
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-304, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crack:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0, 100, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.1, 1.6)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Crack:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0, 1e-05, -0.25, 0, 0.25, 0, 100, -0.25, 0, 0.25, 0, 3, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.1, 1.6)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Crack:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.1)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Crack:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.1)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Crack:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.1)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Crack:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.7, 1.3)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CrackStreamPlayer:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("RoboStreamPlayer:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0.35),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TitleSCreen:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(2.6),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../ColorRect:modulate:r")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.55, 1.8)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../ColorRect:modulate:g")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.55, 1.8)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../ColorRect:modulate:b")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.55, 1.8)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../ColorRect:modulate:a")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1.55, 1.8)
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../ColorRect:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_5krsu"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(11, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-260, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Crack:scale:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Crack:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1e-05, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Crack:modulate:r")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Crack:modulate:g")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Crack:modulate:b")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Crack:modulate:a")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("CrackStreamPlayer:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("RoboStreamPlayer:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("TitleSCreen:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/11/type = "bezier"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("../ColorRect:modulate:r")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/12/type = "bezier"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath("../ColorRect:modulate:g")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/13/type = "bezier"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("../ColorRect:modulate:b")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/14/type = "bezier"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../ColorRect:modulate:a")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../ColorRect:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_psece"]
+_data = {
+"CrackFall": SubResource("Animation_2v263"),
+"RESET": SubResource("Animation_5krsu")
+}
+
+[node name="Menu" type="Node2D"]
+script = SubResource("GDScript_atnha")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -10
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BT_Play" type="Button" parent="CanvasLayer/Control"]
+modulate = Color(1, 0.752941, 0.164706, 1)
+layout_mode = 2
+offset_top = 427.0
+offset_right = 1280.0
+offset_bottom = 553.0
+pivot_offset = Vector2(666, 70)
+theme_override_colors/font_outline_color = Color(0.631373, 0.631373, 0.631373, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_7ol7y")
+theme_override_font_sizes/font_size = 100
+text = "Jugar"
+flat = true
+script = SubResource("GDScript_tcvgd")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/BT_Play"]
+speed_scale = 1.2
+libraries = {
+"": SubResource("AnimationLibrary_suxaj")
+}
+
+[node name="BT_Exit" type="Button" parent="CanvasLayer/Control"]
+modulate = Color(1, 0.752941, 0.164706, 1)
+layout_mode = 2
+offset_top = 597.0
+offset_right = 1280.0
+offset_bottom = 664.0
+theme_override_colors/font_outline_color = Color(0.607843, 0.607843, 0.607843, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_7ol7y")
+theme_override_font_sizes/font_size = 50
+text = "Salir
+"
+flat = true
+script = SubResource("GDScript_qro4p")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RoboCrack" type="Control" parent="CanvasLayer/Control"]
+anchors_preset = 0
+offset_left = 11.0
+offset_top = -260.0
+offset_right = 51.0
+offset_bottom = -220.0
+
+[node name="ROBO" type="TextureRect" parent="CanvasLayer/Control/RoboCrack"]
+layout_mode = 0
+offset_left = 130.0
+offset_top = 21.0
+offset_right = 267.0
+offset_bottom = 92.0
+scale = Vector2(3.5, 3.5)
+texture = ExtResource("8_0e2b2")
+
+[node name="Crack" type="TextureRect" parent="CanvasLayer/Control/RoboCrack"]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_702c7")
+layout_mode = 0
+offset_left = 784.0
+offset_top = 130.0
+offset_right = 987.0
+offset_bottom = 200.0
+rotation = -0.219911
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(97.0546, 34.4301)
+texture = ExtResource("4_rca8n")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/RoboCrack"]
+libraries = {
+"": SubResource("AnimationLibrary_psece")
+}
+
+[node name="RoboStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Control/RoboCrack"]
+stream = ExtResource("5_jc44m")
+
+[node name="CrackStreamPlayer" type="AudioStreamPlayer" parent="CanvasLayer/Control/RoboCrack"]
+stream = ExtResource("6_qxr3p")
+volume_db = -10.0
+
+[node name="TitleSCreen" type="AudioStreamPlayer" parent="CanvasLayer/Control/RoboCrack"]
+stream = ExtResource("7_1ae3h")
+volume_db = -10.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Fondo" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+motion_scale = Vector2(0.2, 0.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Fondo"]
+scale = Vector2(10, 10)
+texture = ExtResource("2_s7tcd")
+
+[node name="Estrellas" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+motion_scale = Vector2(0.4, 0.4)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Estrellas"]
+scale = Vector2(10, 10)
+texture = ExtResource("3_81s2m")
+
+[node name="Luna" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Luna"]
+scale = Vector2(10, 10)
+texture = ExtResource("4_ad0y5")
+
+[node name="Nubes" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+motion_scale = Vector2(0.8, 0.8)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Nubes"]
+scale = Vector2(10, 10)
+texture = ExtResource("5_dan3i")
+
+[node name="Torre" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Torre"]
+scale = Vector2(10, 10)
+texture = ExtResource("6_isb5j")
+
+[node name="Iglesia" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(-331, 50)
+motion_scale = Vector2(1.2, 1.2)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Iglesia"]
+scale = Vector2(10, 10)
+texture = ExtResource("7_fnob0")
+
+[connection signal="pressed" from="CanvasLayer/Control/BT_Play" to="CanvasLayer/Control/BT_Play" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/BT_Exit" to="CanvasLayer/Control/BT_Exit" method="_on_pressed"]

@@ -11,10 +11,14 @@ config_version=5
 [application]
 
 config/name="zjam_2023"
-run/main_scene="res://Scenes/Levels/testing_zone.tscn"
+run/main_scene="res://Addons/MorphineGamesIntro/intro.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 run/max_fps=60
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneTransitioner="*res://Addons/SceneTransitioner/scene_transitioner.tscn"
 
 [display]
 
