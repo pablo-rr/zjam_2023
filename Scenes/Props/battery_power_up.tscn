@@ -27,12 +27,14 @@ func _on_body_entered(body: Node2D) -> void:
 		body.get_node(\"StaminaSystem\").add_stamina(energy)
 		body.power_up_time = body.max_power_up_time
 		$AnimationPlayer2.play(\"Bye\")
-		$AudioStreamPlayer.play(0.0)
-
+		await(get_tree().create_timer(30).timeout)
+		$AnimationPlayer2.play(\"RESET\")
+		used = false
 
 func _on_animation_player_2_animation_finished(anim_name: StringName) -> void:
 	if(anim_name == \"Bye\"):
-		queue_free()
+#		queue_free()
+		pass
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cy4xw"]
