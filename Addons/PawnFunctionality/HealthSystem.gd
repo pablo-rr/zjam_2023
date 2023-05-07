@@ -47,11 +47,11 @@ func blink() -> void:
 func fix_excedent_health() -> void:
 	if(health < 0):
 		health = 0
-		emit_signal("fully_healed")
+		emit_signal("fatally_damaged")
 		emit_signal("health_changed", health)
 	elif(health > max_health):
 		health = max_health
-		emit_signal("fatally_damaged")
+		emit_signal("fully_damaged")
 		emit_signal("health_changed", health)
 		
 func heal(ammount : int) -> void:

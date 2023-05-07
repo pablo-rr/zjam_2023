@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://di4y6rw425mmm"]
+[gd_scene load_steps=16 format=3 uid="uid://di4y6rw425mmm"]
 
 [ext_resource type="Shader" path="res://Shaders/2D/ShineHighlight.gdshader" id="1_04ysw"]
 [ext_resource type="Texture2D" uid="uid://2b8ekfxdceix" path="res://Art/2D/BatterySmall.png" id="1_es3bu"]
+[ext_resource type="AudioStream" uid="uid://gvepsdtafk01" path="res://Art/Audio/SFX/BateriaChiquita.wav" id="3_vaqnf"]
 
 [sub_resource type="GDScript" id="GDScript_2eptk"]
 script/source = "extends Area2D
@@ -13,7 +14,7 @@ script/source = "extends Area2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$AnimationPlayer.play(\"Spike\")
-
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,7 +26,7 @@ func _on_body_entered(body: Node2D) -> void:
 		used = true
 		body.get_node(\"StaminaSystem\").add_stamina(energy)
 		$AnimationPlayer2.play(\"Bye\")
-
+		$AudioStreamPlayer.play(0.0)
 
 func _on_animation_player_2_animation_finished(anim_name: StringName) -> void:
 	if(anim_name == \"Bye\"):
@@ -275,6 +276,11 @@ color_ramp = SubResource("Gradient_twjbh")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_bxcqd")
 texture = ExtResource("1_es3bu")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_vaqnf")
+volume_db = 3.0
+pitch_scale = 0.65
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_animation_player_2_animation_finished"]

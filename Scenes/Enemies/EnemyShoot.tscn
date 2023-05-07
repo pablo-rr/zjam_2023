@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dpwnn0uno3360"]
+[gd_scene load_steps=14 format=3 uid="uid://dpwnn0uno3360"]
 
 [ext_resource type="Script" path="res://Scenes/Enemies/EnemyController.gd" id="1_geava"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/HealthSystem.gd" id="2_k14h1"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/DamageModulator2D.gd" id="3_0g7t3"]
-[ext_resource type="Texture2D" uid="uid://c7jmcni0ln2ew" path="res://Art/2D/Spider.png" id="3_hju25"]
+[ext_resource type="Texture2D" uid="uid://cwyy0635uwfq1" path="res://Art/2D/Tank.png" id="3_salh7"]
+[ext_resource type="AudioStream" uid="uid://bwl2acny28bfl" path="res://Art/Audio/SFX/Candidato1.wav" id="5_oca3o"]
+[ext_resource type="AudioStream" uid="uid://b4ewct52kca4g" path="res://Art/Audio/SFX/Laser.wav" id="6_u2x7y"]
 
 [sub_resource type="GDScript" id="GDScript_gydrp"]
 script/source = "extends CharacterBody2D
@@ -15,11 +17,14 @@ var gravity: int = ProjectSettings.get_setting(\"physics/2d/default_gravity\")
 @onready var direction : int = 1
 
 func _ready() -> void:
-#	$AnimationPlayer.play(\"Run\")
 #	$AnimationPlayer2.play(\"new_animation\")
 	pass
 
 func _physics_process(delta: float) -> void:
+	if(speed > 0):
+		$AnimationPlayer.play(\"Walk\")
+	else:
+		$AnimationPlayer.play(\"RESET\")
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -27,17 +32,81 @@ func _physics_process(delta: float) -> void:
 	velocity.x = direction * speed
 
 	move_and_slide()
+
+
+func _on_enemy_controller_shot() -> void:
+	$Shoot.play(0.0)
 "
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_55gam"]
 radius = 16.0
-height = 64.0
+height = 38.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afgdo"]
-size = Vector2(96, 48)
+size = Vector2(43, 35)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4uj8h"]
-radius = 320.1
+radius = 135.004
+
+[sub_resource type="Animation" id="Animation_hc8q4"]
+resource_name = "Walk"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.3)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_65wfg"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k42qo"]
+_data = {
+"RESET": SubResource("Animation_65wfg"),
+"Walk": SubResource("Animation_hc8q4")
+}
 
 [node name="EnemyShoot" type="CharacterBody2D"]
 script = SubResource("GDScript_gydrp")
@@ -59,13 +128,13 @@ position = Vector2(16, 16)
 target_position = Vector2(0, 16)
 
 [node name="RayCast2D2" type="RayCast2D" parent="."]
-position = Vector2(48, 0)
+position = Vector2(23, 0)
 rotation = -1.57079
 target_position = Vector2(3.55402e-05, 16)
 
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
 script = ExtResource("2_k14h1")
-max_health = 5
+max_health = 10
 heal_when_invulnerable = false
 blink_node = NodePath("../Sprite2D")
 hit_blinks = 0
@@ -73,16 +142,18 @@ blink_time = 0.0
 invulnerable_while_blinking = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_hju25")
+texture = ExtResource("3_salh7")
+hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 4)
 rotation = -1.57079
 shape = SubResource("CapsuleShape2D_55gam")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -8)
+position = Vector2(1.5, 2.5)
 shape = SubResource("RectangleShape2D_afgdo")
 
 [node name="AreaDetection" type="Area2D" parent="."]
@@ -98,3 +169,20 @@ node_to_modulate = NodePath("../Sprite2D")
 max_modulation_time = 0.1
 
 [node name="RayCast2DAimPlayer" type="RayCast2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_k42qo")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_oca3o")
+max_distance = 275.0
+
+[node name="Shoot" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_u2x7y")
+volume_db = 3.0
+pitch_scale = 2.0
+max_distance = 700.0
+
+[connection signal="shot" from="EnemyController" to="." method="_on_enemy_controller_shot"]

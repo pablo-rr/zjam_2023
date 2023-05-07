@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://xc7y56213tgs"]
+[gd_scene load_steps=7 format=3 uid="uid://bwqrv4vpeovfn"]
 
-[ext_resource type="Texture2D" uid="uid://baa2aksdiahqx" path="res://Art/2D/PlayerProjectile.png" id="1_8ma8c"]
+[ext_resource type="Texture2D" uid="uid://baa2aksdiahqx" path="res://Art/2D/PlayerProjectile.png" id="1_tn282"]
 
 [sub_resource type="GDScript" id="GDScript_2n2cr"]
 script/source = "extends CharacterBody2D
@@ -8,6 +8,10 @@ script/source = "extends CharacterBody2D
 @export var speed : float = 400.0
 @export var damage : int = 1
 var direction : int = 0
+
+func _ready() -> void:
+	await(get_tree().create_timer(15.0).timeout)
+	queue_free()
 
 func _physics_process(delta: float) -> void:
 	velocity.x = direction * speed
@@ -18,9 +22,6 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 	if(\"Enemy\" in body.name or \"Interactuable\" in body.name):
 		if(body.get_node(\"EnemyController\").damage_on_bullet):
 			body.get_node(\"HealthSystem\").damage(damage)
-			queue_free()
-	elif(body.name == \"TileMap\"):
-		queue_free()
 		
 "
 
@@ -39,16 +40,17 @@ point_count = 2
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0awp2"]
-radius = 5.09902
+radius = 19.0
 
-[node name="PlayerProjectile" type="CharacterBody2D"]
+[node name="PlayerProjectileCharged" type="CharacterBody2D"]
 script = SubResource("GDScript_2n2cr")
+damage = 100
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-amount = 60
+amount = 120
 lifetime = 0.7
 emission_shape = 1
-emission_sphere_radius = 3.0
+emission_sphere_radius = 9.0
 gravity = Vector2(0, 0)
 radial_accel_curve = SubResource("Curve_2dlr0")
 scale_amount_curve = SubResource("Curve_mww3f")
@@ -56,7 +58,8 @@ color = Color(0.321569, 0.768627, 1, 1)
 color_ramp = SubResource("Gradient_vceo6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_8ma8c")
+scale = Vector2(3, 3)
+texture = ExtResource("1_tn282")
 
 [node name="Area2D" type="Area2D" parent="."]
 

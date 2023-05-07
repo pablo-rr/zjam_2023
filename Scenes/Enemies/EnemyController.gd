@@ -1,6 +1,8 @@
 class_name EnemyController
 extends Node
 
+signal shot
+
 @export var fall_raycast : RayCast2D
 @export var wall_raycast : RayCast2D
 @export var aim_raycast : RayCast2D
@@ -16,6 +18,7 @@ extends Node
 @onready var shooting : bool = false
 @onready var time_since_shoot : float = 0.5
 @onready var bullet : PackedScene = preload("res://Scenes/Enemies/enemy_projectile.tscn")
+@onready var explosion : PackedScene = preload("res://Scenes/Props/explosion.tscn")
 
 var player : Node2D
 
@@ -38,6 +41,9 @@ func _ready() -> void:
 	health_system.damaged.connect(Callable(func(amount) -> void:
 		if(health_system.health <= 0):
 			get_parent().queue_free()
+			var explosion_instance : Sprite2D = explosion.instantiate()
+			explosion_instance.global_position = get_parent().global_position
+			get_parent().get_parent().add_child(explosion_instance)
 		))
 		
 	if(player_detection_area != null):
@@ -79,8 +85,9 @@ func _physics_process(delta: float) -> void:
 	if(shooting and shoots):
 		time_since_shoot -= delta
 		if(time_since_shoot <= 0.0):
-			time_since_shoot = 3.0
+			time_since_shoot = 2.0
 			var bullet_instance : Node2D = bullet.instantiate()
 			bullet_instance.global_position = get_parent().global_position
 			bullet_instance.direction = get_parent().direction
 			get_parent().get_parent().add_child(bullet_instance)
+			emit_signal("shot")

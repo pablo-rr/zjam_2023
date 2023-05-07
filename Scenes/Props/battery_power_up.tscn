@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://qmqfagr13v2n"]
+[gd_scene load_steps=16 format=3 uid="uid://qmqfagr13v2n"]
 
 [ext_resource type="Shader" path="res://Shaders/2D/ShineHighlight.gdshader" id="1_d6gci"]
 [ext_resource type="Texture2D" uid="uid://de64sgsux0pkf" path="res://Art/2D/BatteryCar.png" id="2_r4sh2"]
+[ext_resource type="AudioStream" uid="uid://cnr8kxvxyln2s" path="res://Art/Audio/SFX/sfx_menu_select2.wav" id="3_wiloo"]
 
 [sub_resource type="GDScript" id="GDScript_2eptk"]
 script/source = "extends Area2D
@@ -26,6 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.get_node(\"StaminaSystem\").add_stamina(energy)
 		body.power_up_time = body.max_power_up_time
 		$AnimationPlayer2.play(\"Bye\")
+		$AudioStreamPlayer.play(0.0)
 
 
 func _on_animation_player_2_animation_finished(anim_name: StringName) -> void:
@@ -278,6 +280,9 @@ modulate = Color(1, 1, 1, 0.24116)
 material = SubResource("ShaderMaterial_hkg00")
 position = Vector2(0, -5)
 texture = ExtResource("2_r4sh2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_wiloo")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_animation_player_2_animation_finished"]

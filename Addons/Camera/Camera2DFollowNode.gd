@@ -12,3 +12,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	position = lerp(position, target.position, speed)
+	if(target.infinite_energy):
+		$AnimationPlayer.play("Shake")
+	else:
+		$AnimationPlayer.play("RESET")

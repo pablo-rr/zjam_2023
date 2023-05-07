@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dkj3crajbhunj"]
 
-[ext_resource type="Texture2D" uid="uid://baa2aksdiahqx" path="res://Art/2D/PlayerProjectile.png" id="1_qw442"]
+[ext_resource type="Texture2D" uid="uid://cs2ybi3mg0qqd" path="res://Art/2D/EnemyProjectile.png" id="1_wu48r"]
 
 [sub_resource type="GDScript" id="GDScript_5edvy"]
 script/source = "extends CharacterBody2D
@@ -41,6 +41,7 @@ radius = 5.09902
 
 [node name="EnemyProjectile" type="CharacterBody2D"]
 script = SubResource("GDScript_5edvy")
+speed = 275.0
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 60
@@ -50,11 +51,11 @@ emission_sphere_radius = 3.0
 gravity = Vector2(0, 0)
 radial_accel_curve = SubResource("Curve_2dlr0")
 scale_amount_curve = SubResource("Curve_mww3f")
-color = Color(0.321569, 0.768627, 1, 1)
+color = Color(0.87451, 0, 0.141176, 1)
 color_ramp = SubResource("Gradient_vceo6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_qw442")
+texture = ExtResource("1_wu48r")
 
 [node name="Area2D" type="Area2D" parent="."]
 
