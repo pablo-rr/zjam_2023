@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://hswleah07eoa"]
+[gd_scene load_steps=24 format=3 uid="uid://hswleah07eoa"]
 
-[ext_resource type="FontFile" uid="uid://bkk4nsrmlcl5x" path="res://Resources/Fonts/Fipps-Regular.otf" id="1_bipco"]
+[ext_resource type="FontFile" uid="uid://c87juobiqnyh0" path="res://Resources/Fonts/PixelEmulator-xq08.ttf" id="1_7ol7y"]
 [ext_resource type="Texture2D" uid="uid://doex0jwskoqyh" path="res://Art/2D/Fondo.png" id="2_s7tcd"]
 [ext_resource type="Texture2D" uid="uid://xfj3xi4ugu48" path="res://Art/2D/Estrellas.png" id="3_81s2m"]
 [ext_resource type="Shader" path="res://Shaders/2D/MovingRainbow.gdshader" id="3_nlr52"]
@@ -23,6 +23,7 @@ func _input(event: InputEvent) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$CanvasLayer/Control/BT_Play/AnimationPlayer.play(\"pop\")
 	await(get_tree().create_timer(1).timeout)
 	$CanvasLayer/Control/RoboCrack/AnimationPlayer.play(\"CrackFall\")
 	pass # Replace with function body.
@@ -51,6 +52,63 @@ func _on_pressed() -> void:
 	SceneTransitioner.transition_to_scene(\"res://scenes/levels/testing_zone.tscn\")
 	pass # Replace with function body.
 "
+
+[sub_resource type="Animation" id="Animation_ih4mp"]
+resource_name = "pop"
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.2, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1.2, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+
+[sub_resource type="Animation" id="Animation_y34a5"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_suxaj"]
+_data = {
+"RESET": SubResource("Animation_y34a5"),
+"pop": SubResource("Animation_ih4mp")
+}
 
 [sub_resource type="GDScript" id="GDScript_qro4p"]
 script/source = "extends Button
@@ -465,29 +523,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Vbox" type="VBoxContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 130.0
-offset_bottom = 130.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="BT_Play" type="Button" parent="CanvasLayer/Control/Vbox"]
+[node name="BT_Play" type="Button" parent="CanvasLayer/Control"]
+modulate = Color(1, 0.752941, 0.164706, 1)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_bipco")
-theme_override_font_sizes/font_size = 75
+offset_top = 427.0
+offset_right = 1280.0
+offset_bottom = 553.0
+pivot_offset = Vector2(666, 70)
+theme_override_colors/font_outline_color = Color(0.631373, 0.631373, 0.631373, 1)
+theme_override_constants/outline_size = 10
+theme_override_fonts/font = ExtResource("1_7ol7y")
+theme_override_font_sizes/font_size = 100
 text = "Jugar"
 flat = true
 script = SubResource("GDScript_tcvgd")
 
-[node name="BT_Exit" type="Button" parent="CanvasLayer/Control/Vbox"]
-modulate = Color(1, 0.745098, 0, 1)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Control/BT_Play"]
+speed_scale = 1.2
+libraries = {
+"": SubResource("AnimationLibrary_suxaj")
+}
+
+[node name="BT_Exit" type="Button" parent="CanvasLayer/Control"]
+modulate = Color(1, 0.752941, 0.164706, 1)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_bipco")
+offset_top = 597.0
+offset_right = 1280.0
+offset_bottom = 664.0
+theme_override_colors/font_outline_color = Color(0.607843, 0.607843, 0.607843, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("1_7ol7y")
 theme_override_font_sizes/font_size = 50
 text = "Salir
 "
@@ -599,5 +664,5 @@ motion_scale = Vector2(1.2, 1.2)
 scale = Vector2(10, 10)
 texture = ExtResource("7_fnob0")
 
-[connection signal="pressed" from="CanvasLayer/Control/Vbox/BT_Play" to="CanvasLayer/Control/Vbox/BT_Play" method="_on_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/Vbox/BT_Exit" to="CanvasLayer/Control/Vbox/BT_Exit" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/BT_Play" to="CanvasLayer/Control/BT_Play" method="_on_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/BT_Exit" to="CanvasLayer/Control/BT_Exit" method="_on_pressed"]
