@@ -27,7 +27,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.get_node(\"StaminaSystem\").add_stamina(energy)
 		$AnimationPlayer2.play(\"Bye\")
 		$AudioStreamPlayer.play(0.0)
-		await(get_tree().create_timer(15).timeout)
+		await(get_tree().create_timer(5).timeout)
 		used = false 
 		$AnimationPlayer2.play(\"RESET\")
 		
@@ -250,6 +250,7 @@ shader_parameter/shine_angle = 45.0
 
 [node name="BatterySmall" type="Area2D"]
 script = SubResource("GDScript_2eptk")
+energy = 60.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_cy4xw")

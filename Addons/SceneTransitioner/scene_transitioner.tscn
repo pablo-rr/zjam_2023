@@ -23,6 +23,8 @@ func transition_to_scene(scene_path : String, time : float = 0.6, black_time : f
 func _transition_fade_in(scene_path : String, time : float = 0.6, black_time : float = 0.35) -> void:
 	await(get_tree().create_timer(black_time).timeout)
 	get_tree().change_scene_to_file(scene_path)
+#	get_tree().change_scene(scene_path)
+#	get_tree().change_scene_to_packed(load(scene_path))
 	var tween : Tween = get_tree().create_tween()
 	$ColorRect.modulate = Color(1, 1, 1, 1)
 	tween.tween_property($ColorRect, \"modulate\", Color(1, 1, 1, 0), time)

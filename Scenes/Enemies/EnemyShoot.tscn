@@ -46,7 +46,7 @@ height = 38.0
 size = Vector2(43, 35)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cb54u"]
-size = Vector2(384, 128)
+size = Vector2(384, 224)
 
 [sub_resource type="Animation" id="Animation_65wfg"]
 length = 0.001
@@ -134,7 +134,7 @@ target_position = Vector2(3.55402e-05, 16)
 
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
 script = ExtResource("2_k14h1")
-max_health = 10
+max_health = 5
 heal_when_invulnerable = false
 blink_node = NodePath("../Sprite2D")
 hit_blinks = 0

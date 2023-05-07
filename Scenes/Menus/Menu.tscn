@@ -49,7 +49,7 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	SceneTransitioner.transition_to_scene(\"res://scenes/levels/testing_zone.tscn\")
+	SceneTransitioner.transition_to_scene(\"res://Scenes/Levels/testing_zone.tscn\")
 	pass # Replace with function body.
 "
 
@@ -612,6 +612,16 @@ volume_db = -10.0
 [node name="TitleSCreen" type="AudioStreamPlayer" parent="CanvasLayer/Control/RoboCrack"]
 stream = ExtResource("7_1ae3h")
 volume_db = -10.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 656.0
+offset_right = 798.0
+offset_bottom = 695.0
+theme_override_fonts/font = ExtResource("1_7ol7y")
+theme_override_font_sizes/font_size = 30
+text = "F11 para cambiar pantalla completa"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

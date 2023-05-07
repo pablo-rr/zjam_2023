@@ -1,4 +1,4 @@
-class_name EnemyController
+class_name EnemyController_
 extends Node
 
 signal shot
@@ -48,20 +48,20 @@ func _ready() -> void:
 		
 	if(player_detection_area != null):
 		player_detection_area.body_entered.connect(Callable(func(body) -> void:
-#				print("HELLO")
+			if(body.name == "Player"):
 				player = body
 				))
 			
 		player_detection_area.body_exited.connect(Callable(func(body) -> void:
-#			print("EXIT")
 			if(body.name == "Player"):
 				player = null
-				print("bye bye")
 			))
 
 func change_direction() -> void:
 	get_parent().direction *= -1
 	get_parent().scale.x *= -1
+	if(aim_raycast != null):
+		aim_raycast.scale.x *= -1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -79,12 +79,13 @@ func _physics_process(delta: float) -> void:
 		
 	if(aim_raycast != null):
 		if(player != null):
-			aim_raycast.target_position = player.global_position - get_parent().global_position
+			aim_raycast.target_position = (player.global_position - get_parent().global_position)
 			var collider : Node2D = aim_raycast.get_collider()
 			if(collider == null or (collider != null and collider.name == "Player")):
-				get_parent().speed = 0.0
+				get_parent().speed = 30.0
 				shooting = true
 		else:
+			aim_raycast.target_position = Vector2(0, 0)
 			get_parent().speed = 120.0
 			shooting = false
 	

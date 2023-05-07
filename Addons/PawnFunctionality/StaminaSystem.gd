@@ -38,6 +38,7 @@ func regen(delta : float) -> void:
 	
 func add_stamina(ammount : float) -> void:
 	stamina += ammount
+	fix_excedent_stamina()
 	emit_signal("restored", ammount)
 	emit_signal("stamina_changed", stamina)
 	

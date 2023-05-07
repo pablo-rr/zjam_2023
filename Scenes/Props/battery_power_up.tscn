@@ -24,10 +24,11 @@ func _process(delta: float) -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if(body.name == \"Player\" and !used):
 		used = true
+		body.get_node(\"HealthSystem\").fully_heal()
 		body.get_node(\"StaminaSystem\").add_stamina(energy)
 		body.power_up_time = body.max_power_up_time
 		$AnimationPlayer2.play(\"Bye\")
-		await(get_tree().create_timer(30).timeout)
+		await(get_tree().create_timer(12).timeout)
 		$AnimationPlayer2.play(\"RESET\")
 		used = false
 

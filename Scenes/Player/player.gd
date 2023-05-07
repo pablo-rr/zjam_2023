@@ -10,6 +10,7 @@ extends CharacterBody2D
 @export var max_energy_charge : float = 30.0
 @export var max_power_up_time : float = 10.0
 @export var death_screem : Control
+@export var power_up_ui : Control
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -35,9 +36,11 @@ func _ready() -> void:
 	if(CheckpointSystem.checkpoint != Vector2.ZERO):
 		print("hehe")
 		global_position = CheckpointSystem.checkpoint
+	else:
+		$StaminaSystem.subtract_stamina(40)
 
 func _input(event: InputEvent) -> void:
-	if(Input.is_action_pressed("ui_charge_energy") and is_on_floor()):
+	if(Input.is_action_just_pressed("ui_charge_energy") and is_on_floor()):
 		charging_energy = true
 		$ChargingEnergy.play(0.0)
 	elif(Input.is_action_just_released("ui_charge_energy")):
@@ -82,16 +85,20 @@ func _physics_process(delta: float) -> void:
 		$SuperShoot.emitting = true
 		$ChargingUp.emitting = false
 		
-
+	if(energy_to_regen < 0.0):
+		$ChargingEnergy.stop()
+		
 	if not is_on_floor():
 		velocity.y += gravity * delta
 		
 	if(infinite_energy):
 		energy_charge_fill = 1.0
+		power_up_ui.material.set_shader_parameter("strength", 1)
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.46, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, -80.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, 0.0, 0.09)
 	else:
+		power_up_ui.material.set_shader_parameter("strength", 0)
 		energy_charge_fill = 0.5
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.0, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, 0.0, 0.09)
@@ -103,6 +110,7 @@ func _physics_process(delta: float) -> void:
 		velocity.y = jump_force - jump_force_extra
 		jump_force_extra = delta * jump_force_extra_fill
 		charging_energy = false
+		$ChargingEnergy.stop()
 
 	if(charging_energy):
 		if(energy_to_regen < energy_to_super_shoot):
@@ -150,6 +158,11 @@ func _on_health_system_damaged(ammount) -> void:
 	$ReceiveDamage.play(0.0)
 	if($HealthSystem.health <= 0.0):
 		print("lol")
+		$Sprite2D.modulate = Color(0,0,0,0)
+		$CollisionShape2D.disabled = true
+		$ChargingUp.visible = false
+		$TotallyCharged.visible = false
+		$SuperShoot.visible = false
 		$Sprite2D.visible = false
 		var explosion_instance : Sprite2D = explosion.instantiate()
 		explosion_instance.global_position = global_position

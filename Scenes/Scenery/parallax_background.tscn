@@ -13,15 +13,17 @@
 script = ExtResource("1_kuku4")
 
 [node name="Back" type="ParallaxLayer" parent="."]
+position = Vector2(0, -16)
 motion_scale = Vector2(0, 0)
 motion_mirroring = Vector2(460.8, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Back"]
-scale = Vector2(1.8, 1.8)
+scale = Vector2(3, 3)
 texture = ExtResource("1_4hqfr")
 centered = false
 
 [node name="Stars" type="ParallaxLayer" parent="."]
+position = Vector2(0, -38)
 motion_scale = Vector2(0.02, 0.001)
 motion_mirroring = Vector2(460.8, 0)
 
@@ -31,6 +33,7 @@ texture = ExtResource("3_2xnlo")
 centered = false
 
 [node name="Moon" type="ParallaxLayer" parent="."]
+position = Vector2(0, -38)
 motion_scale = Vector2(0.04, 0.002)
 motion_mirroring = Vector2(460.8, 0)
 
@@ -40,6 +43,7 @@ texture = ExtResource("2_xcp6a")
 centered = false
 
 [node name="Clouds" type="ParallaxLayer" parent="."]
+position = Vector2(0, -38)
 motion_scale = Vector2(0.2, 0.05)
 motion_mirroring = Vector2(460.8, 0)
 
@@ -49,7 +53,7 @@ texture = ExtResource("4_aog3f")
 centered = false
 
 [node name="Tower" type="ParallaxLayer" parent="."]
-position = Vector2(0, -40)
+position = Vector2(0, -70)
 motion_scale = Vector2(0.4, 0.1)
 motion_mirroring = Vector2(460.8, 0)
 
@@ -60,6 +64,7 @@ centered = false
 
 [node name="Fog" type="ParallaxLayer" parent="."]
 modulate = Color(0.654902, 0.564706, 0.788235, 1)
+position = Vector2(0, -38)
 motion_scale = Vector2(0.6, 0.15)
 motion_offset = Vector2(0, -200)
 motion_mirroring = Vector2(1040.04, 0)
@@ -70,7 +75,7 @@ texture = ExtResource("7_q5o86")
 centered = false
 
 [node name="Church" type="ParallaxLayer" parent="."]
-position = Vector2(0, -78)
+position = Vector2(0, -114)
 motion_scale = Vector2(0.8, 0.2)
 motion_offset = Vector2(0, 60)
 motion_mirroring = Vector2(460.8, 0)
