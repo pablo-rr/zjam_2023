@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://di4y6rw425mmm" path="res://Scenes/Props/battery_small.tscn" id="7_evwf8"]
 [ext_resource type="PackedScene" uid="uid://qmqfagr13v2n" path="res://Scenes/Props/battery_power_up.tscn" id="8_m78jc"]
 [ext_resource type="PackedScene" uid="uid://birlfs7ivps7d" path="res://Scenes/Enemies/EnemyStomp.tscn" id="10_uobbh"]
-[ext_resource type="PackedScene" uid="uid://dpwnn0uno3360" path="res://Scenes/Enemies/EnemyShoot.tscn" id="11_0nyfd"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/EnemyShoot.tscn" id="11_0nyfd"]
 
 [sub_resource type="Animation" id="Animation_dhbwy"]
 length = 0.001
