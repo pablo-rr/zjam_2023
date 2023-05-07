@@ -3,10 +3,8 @@ class_name Functionality
 extends Node
 
 static func get_first_node_of_class(node : Node, class_find : String) -> Node:
-	print(class_find)
 	for child in node.get_children():
 		print(child.get_class())
-		if(child.is_class(class_find)):
 			return child
 			
 	return null

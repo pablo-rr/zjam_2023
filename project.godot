@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneTransitioner="*res://Addons/SceneTransitioner/scene_transitioner.tscn"
+CheckpointSystem="*res://Addons/CheckpointSystem/CheckpointSystem.gd"
 
 [display]
 

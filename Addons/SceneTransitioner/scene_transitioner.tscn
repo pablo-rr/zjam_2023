@@ -68,6 +68,7 @@ func transition(time : float = 0.6, black_time : float = 0.35) -> void:
 "
 
 [node name="SceneTransitioner" type="CanvasLayer"]
+layer = 128
 visible = false
 script = SubResource("GDScript_avhkv")
 

@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if(anim_name == \"intro\"):
-		SceneTransitioner.transition_to_scene(\"res://Scenes/Menus/Menu.tscn\")
+		SceneTransitioner.transition_to_scene(\"res://Scenes/Menus/Menu.tscn\", 0.05, 0.05)
 	pass # Replace with function body.
 "
 
@@ -82,7 +82,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_8t251"]
 resource_name = "intro"
-length = 6.0
+length = 4.3
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true

@@ -27,10 +27,14 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var infinite_energy : bool = true
 @onready var power_up_time : float = 0.0
 @onready var energy_to_super_shoot : float = 12.0
+@onready var explosion : PackedScene = preload("res://Scenes/Props/explosion.tscn")
 
 func _ready() -> void:
 	$MusicNormal.play(0.0)
 	$MusicPowerUp.play(0.0)
+	if(CheckpointSystem.checkpoint != Vector2.ZERO):
+		print("hehe")
+		global_position = CheckpointSystem.checkpoint
 
 func _input(event: InputEvent) -> void:
 	if(Input.is_action_pressed("ui_charge_energy") and is_on_floor()):
@@ -145,9 +149,15 @@ func _on_stamina_system_wasted(ammount) -> void:
 func _on_health_system_damaged(ammount) -> void:
 	$ReceiveDamage.play(0.0)
 	if($HealthSystem.health <= 0.0):
-		print("YYYYYYYYYYYYYYYYYYYYYYYYYYY")
+		print("lol")
+		$Sprite2D.visible = false
+		var explosion_instance : Sprite2D = explosion.instantiate()
+		explosion_instance.global_position = global_position
+		get_parent().add_child(explosion_instance)
+		set_process(false)
+		set_physics_process(false)
+		death_screem.death_scene()
 
 
 func _on_health_system_fatally_damaged() -> void:
-#	print("ESTOY DEAD")
 	pass

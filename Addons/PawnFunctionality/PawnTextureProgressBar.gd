@@ -61,7 +61,6 @@ func get_health_system(node : Node):
 	
 func get_stamina_system(node : Node):
 	for child in node.get_children():
-		print(child is StaminaSystem)
 		if(child is StaminaSystem):
 			return child
 	

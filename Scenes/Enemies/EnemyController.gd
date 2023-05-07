@@ -19,6 +19,7 @@ signal shot
 @onready var time_since_shoot : float = 0.5
 @onready var bullet : PackedScene = preload("res://Scenes/Enemies/enemy_projectile.tscn")
 @onready var explosion : PackedScene = preload("res://Scenes/Props/explosion.tscn")
+@onready var shoot_direction : int = 1
 
 var player : Node2D
 
@@ -30,7 +31,6 @@ func _ready() -> void:
 				body.velocity.y = -75
 				if(body.global_position.y < get_parent().global_position.y - ((sprite.texture.get_size().y * sprite.scale.y) / 2)):
 					health_system.damage(1)
-					print(health_system.health)
 				else:
 					body.get_node("HealthSystem").damage(1)
 			else:
@@ -48,15 +48,15 @@ func _ready() -> void:
 		
 	if(player_detection_area != null):
 		player_detection_area.body_entered.connect(Callable(func(body) -> void:
-			print(body.name == "Player")
-			if(body.name == "Player"):
+#				print("HELLO")
 				player = body
-			))
+				))
 			
 		player_detection_area.body_exited.connect(Callable(func(body) -> void:
-			print(body.name == "Player")
+#			print("EXIT")
 			if(body.name == "Player"):
 				player = null
+				print("bye bye")
 			))
 
 func change_direction() -> void:
@@ -68,6 +68,12 @@ func _physics_process(delta: float) -> void:
 	if(fall_raycast.get_collider() == null and get_parent().is_on_floor()):
 		change_direction()
 		
+	if(player != null):
+		if(player.global_position.x >= get_parent().global_position.x):
+			shoot_direction = 1
+		else:
+			shoot_direction = -1
+		
 	if(wall_raycast.get_collider() != null and wall_raycast.get_collider().name != "Player"):
 		change_direction()
 		
@@ -78,16 +84,17 @@ func _physics_process(delta: float) -> void:
 			if(collider == null or (collider != null and collider.name == "Player")):
 				get_parent().speed = 0.0
 				shooting = true
-			else:
-				get_parent().speed = 120.0
-				shooting = false
-				
-	if(shooting and shoots):
+		else:
+			get_parent().speed = 120.0
+			shooting = false
+	
+#	print(player)
+	if(shooting and shoots and player != null):
 		time_since_shoot -= delta
 		if(time_since_shoot <= 0.0):
 			time_since_shoot = 2.0
 			var bullet_instance : Node2D = bullet.instantiate()
 			bullet_instance.global_position = get_parent().global_position
-			bullet_instance.direction = get_parent().direction
+			bullet_instance.direction = shoot_direction
 			get_parent().get_parent().add_child(bullet_instance)
 			emit_signal("shot")
