@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://fe5ko8nkn160"]
 
-[ext_resource type="Texture2D" uid="uid://cootxckovuv1q" path="res://Art/2D/Fondo2.png" id="1_4hqfr"]
 [ext_resource type="Script" path="res://Scenes/Scenery/parallax_background.gd" id="1_kuku4"]
+[ext_resource type="Texture2D" uid="uid://doex0jwskoqyh" path="res://Art/2D/Fondo.png" id="2_2fd2c"]
 [ext_resource type="Texture2D" uid="uid://ch8eqqd83dnfc" path="res://Art/2D/Luna.png" id="2_xcp6a"]
 [ext_resource type="Texture2D" uid="uid://xfj3xi4ugu48" path="res://Art/2D/Estrellas.png" id="3_2xnlo"]
 [ext_resource type="Texture2D" uid="uid://ciuf3sxuhkbav" path="res://Art/2D/Nubes.png" id="4_aog3f"]
@@ -19,7 +19,7 @@ motion_mirroring = Vector2(460.8, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Back"]
 scale = Vector2(3, 3)
-texture = ExtResource("1_4hqfr")
+texture = ExtResource("2_2fd2c")
 centered = false
 
 [node name="Stars" type="ParallaxLayer" parent="."]
