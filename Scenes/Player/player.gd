@@ -173,4 +173,5 @@ func _on_health_system_damaged(ammount) -> void:
 
 
 func _on_health_system_fatally_damaged() -> void:
-	pass
+	print("he muerto")
+	

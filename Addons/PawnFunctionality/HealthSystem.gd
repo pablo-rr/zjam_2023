@@ -87,3 +87,4 @@ func fatally_damage() -> void:
 		emit_signal("damaged", health_damaged)
 		emit_signal("health_changed", health)
 		emit_signal("fatally_damaged")
+		print("palme")
