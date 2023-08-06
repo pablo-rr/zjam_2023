@@ -34,21 +34,22 @@ func _ready() -> void:
 	$MusicNormal.play(0.0)
 	$MusicPowerUp.play(0.0)
 	if(CheckpointSystem.checkpoint != Vector2.ZERO):
-		print("hehe")
 		global_position = CheckpointSystem.checkpoint
 	else:
 		$StaminaSystem.subtract_stamina(40)
 
 func _input(event: InputEvent) -> void:
-	if(Input.is_action_just_pressed("ui_charge_energy") and is_on_floor()):
+	if(Input.is_action_pressed("ui_charge_energy") and is_on_floor() and !charging_energy and $StaminaSystem.stamina > 0):
 		charging_energy = true
 		$ChargingEnergy.play(0.0)
-	elif(Input.is_action_just_released("ui_charge_energy")):
+	elif(event.is_action_released("ui_charge_energy") and charging_energy):
 		$ChargingEnergy.stop()
 		charging_energy = false
 		
 	if(Input.is_action_pressed("ui_shoot")):
 		if($StaminaSystem.stamina >= projectile_energy):
+			$ChargingEnergy.stop()
+			charging_energy = false
 			if(energy_to_regen < energy_to_super_shoot):
 				$SuperShoot.emitting = false
 				$Shoot.play(0.0)
@@ -157,7 +158,6 @@ func _on_stamina_system_wasted(ammount) -> void:
 func _on_health_system_damaged(ammount) -> void:
 	$ReceiveDamage.play(0.0)
 	if($HealthSystem.health <= 0.0):
-		print("lol")
 		$Sprite2D.modulate = Color(0,0,0,0)
 		$CollisionShape2D.disabled = true
 		$ChargingUp.visible = false

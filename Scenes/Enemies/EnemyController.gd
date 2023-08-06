@@ -28,13 +28,13 @@ func _ready() -> void:
 	player_collision_area.body_entered.connect(Callable(func(body) -> void:
 		if(body.name == "Player"):
 			if(damage_on_stomp):
-				body.velocity.y = -75
+				body.velocity.y = -300
 				if(body.global_position.y < get_parent().global_position.y - ((sprite.texture.get_size().y * sprite.scale.y) / 2)):
 					health_system.damage(1)
 				else:
 					body.get_node("HealthSystem").damage(1)
 			else:
-				body.velocity.y = -250
+				body.velocity.y = -300
 				body.get_node("HealthSystem").damage(1)
 		))
 		

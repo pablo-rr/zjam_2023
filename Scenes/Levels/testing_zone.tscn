@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://bk5dnp8djg5h7"]
+[gd_scene load_steps=35 format=3 uid="uid://bk5dnp8djg5h7"]
 
 [ext_resource type="Texture2D" uid="uid://c14r1p7t5h63e" path="res://Art/2D/Energia.png" id="1_75gvt"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/PawnTextureProgressBar.gd" id="1_kwgx5"]
@@ -16,8 +16,13 @@
 [ext_resource type="PackedScene" uid="uid://di4y6rw425mmm" path="res://Scenes/Props/battery_small.tscn" id="7_evwf8"]
 [ext_resource type="PackedScene" uid="uid://b7iaxgolmswct" path="res://Scenes/Menus/tutorial.tscn" id="7_f4xse"]
 [ext_resource type="PackedScene" uid="uid://qmqfagr13v2n" path="res://Scenes/Props/battery_power_up.tscn" id="8_m78jc"]
+[ext_resource type="Texture2D" uid="uid://c1rq18xbu11mn" path="res://Art/2D/LeftButton.png" id="9_ucijq"]
+[ext_resource type="Texture2D" uid="uid://d3jhjpurp8lly" path="res://Art/2D/RightButton.png" id="10_j6x7q"]
 [ext_resource type="PackedScene" uid="uid://birlfs7ivps7d" path="res://Scenes/Enemies/EnemyStomp.tscn" id="10_uobbh"]
 [ext_resource type="PackedScene" uid="uid://dpwnn0uno3360" path="res://Scenes/Enemies/EnemyShoot.tscn" id="11_0nyfd"]
+[ext_resource type="Texture2D" uid="uid://dj5rfyhc082cy" path="res://Art/2D/JumpButton.png" id="11_iqm78"]
+[ext_resource type="Texture2D" uid="uid://cpmljerm8exe6" path="res://Art/2D/ChargeButton.png" id="12_2ay2a"]
+[ext_resource type="Texture2D" uid="uid://bl10rxv3mdu0n" path="res://Art/2D/ShootButton.png" id="13_3gy42"]
 [ext_resource type="Script" path="res://Addons/CheckpointSystem/CheckpointArea.gd" id="17_yiwib"]
 [ext_resource type="Script" path="res://Addons/TutorialSystem/TutorialSystem.gd" id="19_67rcx"]
 
@@ -26,6 +31,74 @@ shader = ExtResource("4_dyt4q")
 shader_parameter/strength = 1.0
 shader_parameter/speed = 1.0
 shader_parameter/angle = 0.0
+
+[sub_resource type="GDScript" id="GDScript_fxcjp"]
+script/source = "extends Control
+
+var charging_pressed : bool = false
+
+func _on_left_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_left\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_right_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_right\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_jump_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_jump\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_charge_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_charge_energy\"
+	charging_pressed = !charging_pressed
+
+	if(charging_pressed):
+		event.pressed = true
+	else:
+		event.pressed = false
+		
+	Input.parse_input_event(event)
+	
+func _on_shoot_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_shoot\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+
+
+func _on_left_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_left\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_right_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_right\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_jump_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_jump\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_shoot_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_shoot\"
+	event.pressed = false
+	Input.parse_input_event(event)
+"
 
 [sub_resource type="Animation" id="Animation_dhbwy"]
 length = 0.001
@@ -234,6 +307,45 @@ animation_time = 0.0
 
 [node name="TryAgain" parent="UI" instance=ExtResource("6_75noy")]
 
+[node name="AndroidControls" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_fxcjp")
+
+[node name="Left" type="TouchScreenButton" parent="UI/AndroidControls"]
+position = Vector2(112, 513)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("9_ucijq")
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="UI/AndroidControls"]
+position = Vector2(280, 513)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("10_j6x7q")
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="UI/AndroidControls"]
+position = Vector2(1098, 564)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("11_iqm78")
+visibility_mode = 1
+
+[node name="Charge" type="TouchScreenButton" parent="UI/AndroidControls"]
+position = Vector2(958, 504)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("12_2ay2a")
+visibility_mode = 1
+
+[node name="Shoot" type="TouchScreenButton" parent="UI/AndroidControls"]
+position = Vector2(1098, 444)
+scale = Vector2(4, 4)
+texture_normal = ExtResource("13_3gy42")
+visibility_mode = 1
+
 [node name="ParallaxBackground" parent="." instance=ExtResource("2_5fmkd")]
 scroll_base_offset = Vector2(640, 640)
 
@@ -242,7 +354,7 @@ layer_0/tile_data = PackedInt32Array(1179660, 65536, 1, 1179661, 65536, 1, 11796
 
 [node name="Player" parent="." node_paths=PackedStringArray("death_screem", "power_up_ui") instance=ExtResource("2_etgsf")]
 position = Vector2(416, 480)
-acceleration = 35.0
+acceleration = 25.0
 death_screem = NodePath("../UI/TryAgain")
 power_up_ui = NodePath("../UI/EnergyBars/PawnTextureProgressBar")
 
@@ -566,6 +678,7 @@ position = Vector2(1008, 464)
 script = ExtResource("19_67rcx")
 tutorial_ui = NodePath("../../UI/Tutorial")
 tutorial_text = "W / Espacio / ↑: Saltar."
+tutorial_text_android = "🔼: Saltar."
 show_time = 4.0
 metadata/_edit_group_ = true
 
@@ -581,6 +694,9 @@ tutorial_text = "J / Shift: Cargar energía.
 Carga energía para hacer saltos más altos.
 
 Utiliza Pilas para recargar tu energía."
+tutorial_text_android = "*️⃣: Cargar energía.
+
+Carga energía para hacer saltos más altos."
 show_time = 5.0
 metadata/_edit_group_ = true
 
@@ -592,6 +708,7 @@ position = Vector2(4064, 80)
 script = ExtResource("19_67rcx")
 tutorial_ui = NodePath("../../UI/Tutorial")
 tutorial_text = "El Rayo azul roba Energía, evita tocarlo."
+tutorial_text_android = "El Rayo azul roba Energía, evita tocarlo."
 show_time = 3.0
 metadata/_edit_group_ = true
 
@@ -605,6 +722,9 @@ tutorial_ui = NodePath("../../UI/Tutorial")
 tutorial_text = "La Batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada.
 
 ¡Mientras estás en modo Energía Ilimitada tu medidor de Energía no bajará, pero seguirá aumentando mientras lo cargues!"
+tutorial_text_android = "La Batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada.
+
+¡Mientras estás en modo Energía Ilimitada tu medidor de Energía no bajará, pero seguirá aumentando mientras lo cargues!"
 show_time = 9.0
 metadata/_edit_group_ = true
 
@@ -616,6 +736,11 @@ position = Vector2(4784, -528)
 script = ExtResource("19_67rcx")
 tutorial_ui = NodePath("../../UI/Tutorial")
 tutorial_text = "I / Alt Izquiero / F: Disparar.
+
+Disparar consume energía.
+
+Puedes cargar energía para hacer un disparo más poderoso."
+tutorial_text_android = "⏺: Disparar.
 
 Disparar consume energía.
 
@@ -634,4 +759,14 @@ script = SubResource("GDScript_svjk4")
 position = Vector2(56, 16)
 shape = SubResource("RectangleShape2D_svx4f")
 
+[connection signal="pressed" from="UI/AndroidControls/Left" to="UI/AndroidControls" method="_on_left_pressed"]
+[connection signal="released" from="UI/AndroidControls/Left" to="UI/AndroidControls" method="_on_left_button_up"]
+[connection signal="pressed" from="UI/AndroidControls/Right" to="UI/AndroidControls" method="_on_right_button_down"]
+[connection signal="released" from="UI/AndroidControls/Right" to="UI/AndroidControls" method="_on_right_button_up"]
+[connection signal="pressed" from="UI/AndroidControls/Jump" to="UI/AndroidControls" method="_on_jump_button_down"]
+[connection signal="released" from="UI/AndroidControls/Jump" to="UI/AndroidControls" method="_on_jump_button_up"]
+[connection signal="pressed" from="UI/AndroidControls/Charge" to="UI/AndroidControls" method="_on_charge_button_down"]
+[connection signal="released" from="UI/AndroidControls/Charge" to="UI/AndroidControls" method="_on_charge_button_up"]
+[connection signal="pressed" from="UI/AndroidControls/Shoot" to="UI/AndroidControls" method="_on_shoot_button_down"]
+[connection signal="released" from="UI/AndroidControls/Shoot" to="UI/AndroidControls" method="_on_shoot_button_up"]
 [connection signal="body_entered" from="GoToCredits" to="GoToCredits" method="_on_body_entered"]
