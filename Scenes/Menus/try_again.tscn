@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://cuoui7qvu8dw4"]
+[gd_scene load_steps=9 format=3 uid="uid://cuoui7qvu8dw4"]
 
 [ext_resource type="FontFile" uid="uid://c87juobiqnyh0" path="res://Resources/Fonts/PixelEmulator-xq08.ttf" id="1_xwwr8"]
+[ext_resource type="Script" path="res://classes/ui_focused_animator.gd" id="2_5lu3s"]
 
 [sub_resource type="GDScript" id="GDScript_a1pkw"]
 script/source = "extends Control
@@ -8,6 +9,7 @@ script/source = "extends Control
 
 func death_scene() -> void:
 	$AnimationPlayer.play(\"FadeIN\")
+	$Vbox/BT_Play.grab_focus()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -202,33 +204,60 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Vbox" type="VBoxContainer" parent="."]
+[node name="Vbox" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 231.0
+offset_right = -231.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 
 [node name="BT_Play" type="Button" parent="Vbox"]
 modulate = Color(1, 0.745098, 0, 1)
 layout_mode = 2
+offset_top = 260.0
+offset_right = 818.0
+offset_bottom = 357.0
+focus_next = NodePath("../BT_Exit")
+focus_previous = NodePath("../BT_Exit")
 theme_override_fonts/font = ExtResource("1_xwwr8")
 theme_override_font_sizes/font_size = 75
 text = "Volver a jugar"
 flat = true
 script = SubResource("GDScript_km10b")
 
+[node name="UIFocusedAnimator" type="Control" parent="Vbox/BT_Play"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_5lu3s")
+
 [node name="BT_Exit" type="Button" parent="Vbox"]
 modulate = Color(1, 0.745098, 0, 1)
 layout_mode = 2
+offset_left = 313.0
+offset_top = 392.0
+offset_right = 506.0
+offset_bottom = 459.0
+focus_next = NodePath("../BT_Play")
+focus_previous = NodePath("../BT_Play")
 theme_override_fonts/font = ExtResource("1_xwwr8")
 theme_override_font_sizes/font_size = 50
 text = "Salir	
 "
 flat = true
 script = SubResource("GDScript_s0dyf")
+
+[node name="UIFocusedAnimator" type="Control" parent="Vbox/BT_Exit"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -313.0
+offset_top = -132.0
+offset_right = -273.0
+offset_bottom = -92.0
+script = ExtResource("2_5lu3s")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

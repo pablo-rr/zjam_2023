@@ -1,0 +1,130 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5rihk1a4af8g"]
+
+[ext_resource type="Texture2D" uid="uid://c1rq18xbu11mn" path="res://Art/2D/LeftButton.png" id="1_y24dc"]
+[ext_resource type="Texture2D" uid="uid://d3jhjpurp8lly" path="res://Art/2D/RightButton.png" id="2_pfxq6"]
+[ext_resource type="Texture2D" uid="uid://dj5rfyhc082cy" path="res://Art/2D/JumpButton.png" id="3_lf1ns"]
+[ext_resource type="Texture2D" uid="uid://cpmljerm8exe6" path="res://Art/2D/ChargeButton.png" id="4_wtrf6"]
+[ext_resource type="Texture2D" uid="uid://bl10rxv3mdu0n" path="res://Art/2D/ShootButton.png" id="5_y523h"]
+
+[sub_resource type="GDScript" id="GDScript_fxcjp"]
+script/source = "extends Control
+
+var charging_pressed : bool = false
+
+func _on_left_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_left\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_right_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_right\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_jump_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_jump\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+func _on_charge_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_charge_energy\"
+	charging_pressed = !charging_pressed
+
+	if(charging_pressed):
+		event.pressed = true
+	else:
+		event.pressed = false
+		
+	Input.parse_input_event(event)
+	
+func _on_shoot_button_down() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_shoot\"
+	event.pressed = true
+	Input.parse_input_event(event)
+
+
+
+func _on_left_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_left\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_right_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_right\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_jump_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_jump\"
+	event.pressed = false
+	Input.parse_input_event(event)
+
+func _on_shoot_button_up() -> void:
+	var event = InputEventAction.new()
+	event.action = \"ui_shoot\"
+	event.pressed = false
+	Input.parse_input_event(event)
+"
+
+[node name="AndroidControls" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_fxcjp")
+
+[node name="Left" type="TouchScreenButton" parent="."]
+position = Vector2(133, 488)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("1_y24dc")
+passby_press = true
+visibility_mode = 1
+
+[node name="Right" type="TouchScreenButton" parent="."]
+position = Vector2(324, 488)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("2_pfxq6")
+passby_press = true
+visibility_mode = 1
+
+[node name="Jump" type="TouchScreenButton" parent="."]
+position = Vector2(1082, 537)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("3_lf1ns")
+passby_press = true
+visibility_mode = 1
+
+[node name="Charge" type="TouchScreenButton" parent="."]
+position = Vector2(922, 461)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("4_wtrf6")
+passby_press = true
+visibility_mode = 1
+
+[node name="Shoot" type="TouchScreenButton" parent="."]
+position = Vector2(1082, 382)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("5_y523h")
+passby_press = true
+visibility_mode = 1
+
+[connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
+[connection signal="released" from="Left" to="." method="_on_left_button_up"]
+[connection signal="pressed" from="Right" to="." method="_on_right_button_down"]
+[connection signal="released" from="Right" to="." method="_on_right_button_up"]
+[connection signal="pressed" from="Jump" to="." method="_on_jump_button_down"]
+[connection signal="released" from="Jump" to="." method="_on_jump_button_up"]
+[connection signal="pressed" from="Charge" to="." method="_on_charge_button_down"]
+[connection signal="released" from="Charge" to="." method="_on_charge_button_up"]
+[connection signal="pressed" from="Shoot" to="." method="_on_shoot_button_down"]
+[connection signal="released" from="Shoot" to="." method="_on_shoot_button_up"]
