@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://12ly43on8v6h"]
 
-[ext_resource type="Texture2D" uid="uid://b1gdlpvqfhlvn" path="res://Art/2D/TileSet.png" id="1_5f3xk"]
+[ext_resource type="Texture2D" uid="uid://b1gdlpvqfhlvn" path="res://Art/2D/Tileset.png" id="1_5f3xk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6oroh"]
 texture = ExtResource("1_5f3xk")
@@ -196,7 +196,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_d5y21"]
 tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Terrain"
 terrain_set_0/terrain_0/color = Color(0, 0.337255, 0.235294, 1)

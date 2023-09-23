@@ -50,7 +50,7 @@ func _ready() -> void:
 		player_detection_area.body_entered.connect(Callable(func(body) -> void:
 			if(body.name == "Player"):
 				player = body
-				))
+			))
 			
 		player_detection_area.body_exited.connect(Callable(func(body) -> void:
 			if(body.name == "Player"):
@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		if(player != null):
 			aim_raycast.target_position = (player.global_position - get_parent().global_position)
 			var collider : Node2D = aim_raycast.get_collider()
-			if(collider == null or (collider != null and collider.name == "Player")):
+			if(collider != null and collider.name == "Player"):
 				get_parent().speed = 30.0
 				shooting = true
 		else:

@@ -9,7 +9,7 @@ extends CharacterBody2D
 @export var energy_charge_fill : float = 0.5
 @export var max_energy_charge : float = 30.0
 @export var max_power_up_time : float = 10.0
-@export var death_screem : Control
+@export var death_screen : Control
 @export var power_up_ui : Control
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -158,8 +158,8 @@ func _on_stamina_system_wasted(ammount) -> void:
 func _on_health_system_damaged(ammount) -> void:
 	$ReceiveDamage.play(0.0)
 	if($HealthSystem.health <= 0.0):
+		$CollisionShape2D.queue_free()
 		$Sprite2D.modulate = Color(0,0,0,0)
-		$CollisionShape2D.disabled = true
 		$ChargingUp.visible = false
 		$TotallyCharged.visible = false
 		$SuperShoot.visible = false
@@ -169,9 +169,8 @@ func _on_health_system_damaged(ammount) -> void:
 		get_parent().add_child(explosion_instance)
 		set_process(false)
 		set_physics_process(false)
-		death_screem.death_scene()
+		death_screen.death_scene()
 
 
 func _on_health_system_fatally_damaged() -> void:
 	print("he muerto")
-	

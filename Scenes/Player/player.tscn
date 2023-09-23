@@ -156,7 +156,7 @@ waste_interval = 17.5
 
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]
 script = ExtResource("4_vlpak")
-max_health = 4
+max_health = 1
 invulnerable_on_damage = true
 blink_node = NodePath("../Sprite2D")
 blink_time = 0.2
