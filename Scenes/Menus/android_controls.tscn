@@ -17,6 +17,11 @@ func _ready() -> void:
 	player.get_node(\"HealthSystem\").connect(\"fatally_damaged\", Callable(func() -> void:
 		visible = false
 	))
+	
+	player.get_node(\"HealthSystem\").connect(\"damaged\", Callable(func(health) -> void:
+		if(player.get_node(\"HealthSystem\").health <= 0.0):
+			visible = false
+	))
 
 func _on_left_pressed() -> void:
 	var event = InputEventAction.new()

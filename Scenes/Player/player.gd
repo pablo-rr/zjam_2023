@@ -15,6 +15,8 @@ extends CharacterBody2D
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var jump_velocity_redirect : bool = false
+@onready var saved_jump_force_extra : float = 0.0
 @onready var jump_force_extra : float = 0.0
 @onready var time_charging_jump : float = 0.0
 @onready var charging_energy : bool = false
@@ -89,7 +91,7 @@ func _physics_process(delta: float) -> void:
 	if(energy_to_regen < 0.0):
 		$ChargingEnergy.stop()
 		
-	if not is_on_floor():
+	if(not is_on_floor() and !jump_velocity_redirect):
 		velocity.y += gravity * delta
 		
 	if(infinite_energy):
@@ -104,15 +106,7 @@ func _physics_process(delta: float) -> void:
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.0, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, 0.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, -80.0, 0.09)
-
-	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
-		$Jump.play(0.0)
-		energy_to_regen = 0.0
-		velocity.y = jump_force - jump_force_extra
-		jump_force_extra = delta * jump_force_extra_fill
-		charging_energy = false
-		$ChargingEnergy.stop()
-
+	
 	if(charging_energy):
 		if(energy_to_regen < energy_to_super_shoot):
 			$ChargingUp.emitting = true
@@ -132,6 +126,22 @@ func _physics_process(delta: float) -> void:
 		energy_to_regen = 0.0
 		time_charging_jump = 0.0
 		jump_force_extra = 0.0
+
+	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
+		$Jump.play(0.0)
+		energy_to_regen = 0.0
+		velocity.y = jump_force - jump_force_extra
+		saved_jump_force_extra = jump_force_extra
+		charging_energy = false
+		$ChargingEnergy.stop()
+	elif(Input.is_action_just_released("ui_jump") and saved_jump_force_extra <= 0.0):
+		jump_velocity_redirect = true
+		
+	if(jump_velocity_redirect):
+		velocity.y = move_toward(velocity.y, 0.0, 50.0)
+		if(velocity.y >= 0.0):
+			jump_velocity_redirect = false
+		
 
 	var direction := Input.get_axis("ui_left", "ui_right")
 	if direction:

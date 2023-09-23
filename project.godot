@@ -10,11 +10,12 @@ config_version=5
 
 [application]
 
-config/name="zjam_2023"
+config/name="Robo-Crack"
 run/main_scene="res://Addons/MorphineGamesIntro/intro.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 run/max_fps=120
-config/icon="res://icon.svg"
+config/icon="res://Art/2D/Icon.png"
+config/windows_native_icon="res://Art/2D/Icon.ico"
 
 [autoload]
 
