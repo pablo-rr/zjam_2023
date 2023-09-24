@@ -1,0 +1,74 @@
+[gd_scene load_steps=4 format=3 uid="uid://uy3haf81sywa"]
+
+[ext_resource type="Script" path="res://classes/ui_focused_animator.gd" id="1_85hr0"]
+
+[sub_resource type="GDScript" id="GDScript_ouc8l"]
+script/source = "#extends Control
+#
+#func _ready() -> void:
+#	set_pause_mode(Node.PAUSE_MODE_PROCESS)
+#
+#func _input(event):
+#		if event.is_action_pressed(\"pause_game\"):
+#			if Engine.is_paused():
+#				Engine.set_pause(false)
+#				set_visible(false)  # Oculta la pantalla de pausa
+#			else:
+#				Engine.set_pause(true)
+#				set_visible(true)  # Muestra la pantalla de pausa
+"
+
+[sub_resource type="GDScript" id="GDScript_ukx1h"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ouc8l")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BT_Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Reanudar"
+script = SubResource("GDScript_ukx1h")
+
+[node name="UIFocusedAnimator" type="Control" parent="VBoxContainer/BT_Resume"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_85hr0")
+
+[node name="BT_Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Salir"
+
+[connection signal="pressed" from="VBoxContainer/BT_Resume" to="VBoxContainer/BT_Resume" method="_on_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5rihk1a4af8g"]
+[gd_scene load_steps=11 format=3 uid="uid://cvjrkbk3sgls0"]
 
 [ext_resource type="Texture2D" uid="uid://c1rq18xbu11mn" path="res://Art/2D/LeftButton.png" id="1_y24dc"]
 [ext_resource type="Texture2D" uid="uid://cxsmm255bgqf0" path="res://Art/2D/LeftButtonDown.png" id="2_mggxs"]
@@ -102,6 +102,15 @@ func stop_charge() -> void:
 	event.pressed = false
 	charging_pressed = false
 	Input.parse_input_event(event)
+
+
+
+
+func _on_pause_pressed() -> void:
+	var event = InputEventAction.new()
+	event.action =\"ui_pause\"
+	event.pressed = false
+	pass # Replace with function body.
 "
 
 [node name="AndroidControls" type="Control"]
@@ -152,6 +161,8 @@ texture_pressed = ExtResource("9_rm2f3")
 passby_press = true
 visibility_mode = 1
 
+[node name="Pause" type="TouchScreenButton" parent="."]
+
 [connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
 [connection signal="released" from="Left" to="." method="_on_left_button_up"]
 [connection signal="pressed" from="Right" to="." method="_on_right_button_down"]
@@ -162,3 +173,4 @@ visibility_mode = 1
 [connection signal="released" from="Charge" to="." method="_on_charge_button_up"]
 [connection signal="pressed" from="Shoot" to="." method="_on_shoot_button_down"]
 [connection signal="released" from="Shoot" to="." method="_on_shoot_button_up"]
+[connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
