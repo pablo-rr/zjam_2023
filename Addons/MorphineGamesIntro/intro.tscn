@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://dysu14ydospew"]
+[gd_scene load_steps=9 format=3 uid="uid://dysu14ydospew"]
 
 [ext_resource type="FontFile" uid="uid://cvmh8f3li1gp" path="res://Addons/MorphineGamesIntro/Fonts/Boyfrend.ttf" id="1_goiqj"]
 [ext_resource type="FontFile" uid="uid://3nub8ekhevi1" path="res://Addons/MorphineGamesIntro/Fonts/Playball.ttf" id="2_iaoka"]
+[ext_resource type="Texture2D" uid="uid://cgnc13c4ktrqd" path="res://Art/2D/Logotipo_Morphin_Games_Horizontal_PNG_inverted.png" id="3_h7ew7"]
 [ext_resource type="AudioStream" uid="uid://dyo8haoehxjkh" path="res://Addons/MorphineGamesIntro/Audio/MorphineGames.wav" id="3_vspvk"]
 
 [sub_resource type="GDScript" id="GDScript_tibbo"]
@@ -174,6 +175,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Morphine" type="Label" parent="Labels"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -190,6 +192,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Games" type="Label" parent="Labels"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -205,6 +208,19 @@ theme_override_font_sizes/font_size = 125
 text = "Games"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Labels"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -407.0
+offset_right = 361.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(1024, 360)
+texture = ExtResource("3_h7ew7")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

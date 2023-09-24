@@ -569,8 +569,12 @@ position = Vector2(6512, -624)
 position = Vector2(1008, 464)
 script = ExtResource("19_67rcx")
 tutorial_ui = NodePath("../../UI/Tutorial")
-tutorial_text = "W / Espacio / ↑: Saltar."
-tutorial_text_android = "🔼: Saltar."
+tutorial_text = "W / Espacio / ↑: Saltar.
+
+Matén pulsado para llegar más alto."
+tutorial_text_android = "🔼: Saltar.
+
+Matén pulsado para llegar más alto."
 show_time = 4.0
 metadata/_edit_group_ = true
 
@@ -588,7 +592,7 @@ Carga energía para hacer saltos más altos.
 Utiliza Pilas para recargar tu energía."
 tutorial_text_android = "⭐: Cargar energía.
 
-Carga energía para hacer saltos más altos. Una vez pulses el botón de cargar (⭐), se mantendrá cargando energía hasta que saltes, dispares o vuelvas a pulsarlo.
+Carga energía para hacer saltos más altos. La energía seguirá cargándose hasta que saltes o vuelvas a pulsar el botón de cargar energía.
 
 Utiliza Pilas para recargar tu energía."
 show_time = 7.25
@@ -613,13 +617,9 @@ shape = SubResource("RectangleShape2D_8b42k")
 position = Vector2(4512, 352)
 script = ExtResource("19_67rcx")
 tutorial_ui = NodePath("../../UI/Tutorial")
-tutorial_text = "La Batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada.
-
-¡Mientras estás en modo Energía Ilimitada tu medidor de Energía no bajará, pero seguirá aumentando mientras lo cargues!"
-tutorial_text_android = "La Batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada.
-
-¡Mientras estás en modo Energía Ilimitada tu medidor de Energía no bajará, pero seguirá aumentando mientras lo cargues!"
-show_time = 9.0
+tutorial_text = "La batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada."
+tutorial_text_android = "La batería grande regenera toda tu energía y vida, y te otorga 10 segundos de Energía Ilimitada."
+show_time = 7.25
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorials/TS_SaltoNormal4"]

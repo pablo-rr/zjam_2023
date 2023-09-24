@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://hswleah07eoa"]
+[gd_scene load_steps=22 format=3 uid="uid://hswleah07eoa"]
 
 [ext_resource type="FontFile" uid="uid://c87juobiqnyh0" path="res://Resources/Fonts/PixelEmulator-xq08.ttf" id="1_7ol7y"]
 [ext_resource type="Script" path="res://classes/ui_focused_animator.gd" id="2_m3mox"]
@@ -457,16 +457,6 @@ _data = {
 "RESET": SubResource("Animation_5krsu")
 }
 
-[sub_resource type="GDScript" id="GDScript_tt15o"]
-script/source = "extends Label
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	if(OS.get_name() == \"Android\"):
-		visible = false
-"
-
 [node name="Menu" type="Node2D"]
 script = SubResource("GDScript_atnha")
 
@@ -583,17 +573,6 @@ volume_db = -10.0
 [node name="TitleSCreen" type="AudioStreamPlayer" parent="CanvasLayer/Control/RoboCrack"]
 stream = ExtResource("7_1ae3h")
 volume_db = -10.0
-
-[node name="FullScreen" type="Label" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 656.0
-offset_right = 798.0
-offset_bottom = 695.0
-theme_override_fonts/font = ExtResource("1_7ol7y")
-theme_override_font_sizes/font_size = 24
-text = "F11 para cambiar pantalla completa"
-script = SubResource("GDScript_tt15o")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

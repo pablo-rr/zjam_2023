@@ -48,7 +48,7 @@ func _input(event: InputEvent) -> void:
 		$ChargingEnergy.stop()
 		charging_energy = false
 		
-	if(Input.is_action_pressed("ui_shoot")):
+	if(Input.is_action_just_pressed("ui_shoot")):
 		if($StaminaSystem.stamina >= projectile_energy):
 			$ChargingEnergy.stop()
 			charging_energy = false
@@ -100,12 +100,18 @@ func _physics_process(delta: float) -> void:
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.46, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, -80.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, 0.0, 0.09)
+#		$ChargingUp.material.set_shader_parameter("alpha", 1)
+#		$TotallyCharged.material.set_shader_parameter("alpha", 1)
+#		$SuperShoot.material.set_shader_parameter("alpha", 1)
 	else:
 		power_up_ui.material.set_shader_parameter("strength", 0)
 		energy_charge_fill = 0.5
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.0, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, 0.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, -80.0, 0.09)
+#		$ChargingUp.material.set_shader_parameter("alpha", 0)
+#		$TotallyCharged.material.set_shader_parameter("alpha", 0)
+#		$SuperShoot.material.set_shader_parameter("alpha", 0)
 	
 	if(charging_energy):
 		if(energy_to_regen < energy_to_super_shoot):
@@ -134,11 +140,12 @@ func _physics_process(delta: float) -> void:
 		saved_jump_force_extra = jump_force_extra
 		charging_energy = false
 		$ChargingEnergy.stop()
-	elif(Input.is_action_just_released("ui_jump") and saved_jump_force_extra <= 0.0):
+#	elif(Input.is_action_just_released("ui_jump") and saved_jump_force_extra <= 0.0):
+	elif(Input.is_action_just_released("ui_jump")):
 		jump_velocity_redirect = true
 		
 	if(jump_velocity_redirect):
-		velocity.y = move_toward(velocity.y, 0.0, 50.0)
+		velocity.y = move_toward(velocity.y, 0.0, 40.0)
 		if(velocity.y >= 0.0):
 			jump_velocity_redirect = false
 		
