@@ -12,10 +12,12 @@ extends CharacterBody2D
 @export var death_screen : Control
 @export var power_up_ui : Control
 @export var pause_ui : Control
+@export var charge_percentage_label : Label
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+@onready var charge_percentage : float = 0.0
 @onready var jump_velocity_redirect : bool = false
 @onready var saved_jump_force_extra : float = 0.0
 @onready var jump_force_extra : float = 0.0
@@ -118,17 +120,25 @@ func _physics_process(delta: float) -> void:
 #		$TotallyCharged.material.set_shader_parameter("alpha", 0)
 #		$SuperShoot.material.set_shader_parameter("alpha", 0)
 	
+	print(charge_percentage)
+	
+	
 	if(charging_energy):
 		if(energy_to_regen < energy_to_super_shoot):
 			$ChargingUp.emitting = true
 		if($StaminaSystem.stamina > 0 and energy_to_regen < max_energy_charge):
 			if(!infinite_energy):
 				$StaminaSystem.waste(delta * energy_charge_fill)
+				charge_percentage += delta * energy_charge_fill
 			jump_force_extra += delta * jump_force_extra_fill
 		else:
 			$ChargingEnergy.pitch_scale = 1.5
 			$TotallyCharged.emitting = true
+			
+		if(infinite_energy):
+			charge_percentage += delta * energy_charge_fill
 	else:
+		charge_percentage = 0
 		$ChargingEnergy.pitch_scale = 1.0
 		$ChargingUp.emitting = false
 		$TotallyCharged.emitting = false
@@ -137,6 +147,8 @@ func _physics_process(delta: float) -> void:
 		energy_to_regen = 0.0
 		time_charging_jump = 0.0
 		jump_force_extra = 0.0
+	
+	charge_percentage_label.text = get_percentage_string()
 
 	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 		$Jump.play(0.0)
@@ -173,9 +185,11 @@ func _physics_process(delta: float) -> void:
 	velocity.x = speed
 	move_and_slide()
 
+func get_percentage_string() -> String:
+	return str(floor(charge_percentage * 100 / 1.73333333333333), "%")
+
 func _on_stamina_system_wasted(ammount) -> void:
 	energy_to_regen += ammount
-
 
 func _on_health_system_damaged(ammount) -> void:
 	$ReceiveDamage.play(0.0)
