@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://uy3haf81sywa"]
+
+[ext_resource type="Script" path="res://classes/ui_focused_animator.gd" id="1_85hr0"]
+
+[sub_resource type="GDScript" id="GDScript_me0pa"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_bt_resume_pressed() -> void:
+	get_tree().paused = false
+	visible = false
+
+func _on_button_pressed() -> void:
+	print(\"NO ME HE CAGADO ENCIMA\")
+	get_tree().quit()
+
+
+func _on_ui_focused_animator_mouse_entered() -> void:
+	pass # Replace with function body.
+
+
+"
+
+[node name="Pause" type="Control"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_me0pa")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BT_Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Reanudar"
+
+[node name="UIFocusedAnimator" type="Control" parent="VBoxContainer/BT_Resume"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_85hr0")
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "SALIR"
+
+[node name="UIFocusedAnimator" type="Control" parent="VBoxContainer/Button"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_85hr0")
+
+[connection signal="pressed" from="VBoxContainer/BT_Resume" to="." method="_on_bt_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

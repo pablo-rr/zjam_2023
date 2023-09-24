@@ -11,6 +11,7 @@ extends CharacterBody2D
 @export var max_power_up_time : float = 10.0
 @export var death_screen : Control
 @export var power_up_ui : Control
+@export var pause_ui : Control
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -48,6 +49,10 @@ func _input(event: InputEvent) -> void:
 		$ChargingEnergy.stop()
 		charging_energy = false
 		
+	if Input.is_action_pressed("ui_pause"):
+		pause_ui.visible = true
+		get_tree().paused = true
+			
 	if(Input.is_action_just_pressed("ui_shoot")):
 		if($StaminaSystem.stamina >= projectile_energy):
 			$ChargingEnergy.stop()
@@ -191,3 +196,6 @@ func _on_health_system_damaged(ammount) -> void:
 
 func _on_health_system_fatally_damaged() -> void:
 	print("he muerto")
+
+
+	

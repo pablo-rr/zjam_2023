@@ -1,0 +1,70 @@
+[gd_scene load_steps=3 format=3 uid="uid://07c0j4ib1opf"]
+
+[ext_resource type="Script" path="res://classes/ui_focused_animator.gd" id="1_5v11v"]
+
+[sub_resource type="GDScript" id="GDScript_1raik"]
+script/source = "extends Control
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func _on_bt_resume_pressed() -> void:
+	SceneTransitioner.transition_to_scene(\"res://Scenes/Levels/testing_zone.tscn\")
+
+
+func _on_bt_quit_pressed() -> void:
+	get_tree().quit()
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1raik")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="BT_Resume" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Reanudar"
+
+[node name="UIFocusedAnimator" type="Control" parent="VBoxContainer/BT_Resume"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_5v11v")
+
+[node name="BT_Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Salir"
+
+[node name="UIFocusedAnimator" type="Control" parent="VBoxContainer/BT_Quit"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_5v11v")
+
+[connection signal="pressed" from="VBoxContainer/BT_Resume" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/BT_Resume" to="." method="_on_bt_resume_pressed"]
+[connection signal="pressed" from="VBoxContainer/BT_Quit" to="." method="_on_bt_quit_pressed"]
