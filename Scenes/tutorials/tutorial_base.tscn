@@ -1,0 +1,126 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgbgpvltx7gti"]
+
+[ext_resource type="FontFile" uid="uid://c87juobiqnyh0" path="res://Resources/Fonts/PixelEmulator-xq08.ttf" id="1_36r77"]
+[ext_resource type="Texture2D" uid="uid://b44va8lutbejk" path="res://Art/2D/ButtonSpace.png" id="1_bbnfi"]
+[ext_resource type="Texture2D" uid="uid://doj86jlr3g12u" path="res://Art/2D/ButtonW.png" id="2_v3lay"]
+[ext_resource type="Texture2D" uid="uid://c5j27nrihuvrs" path="res://Art/2D/ButtonUp.png" id="3_fcbsb"]
+
+[node name="TutorialBase" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = 130.0
+offset_right = -140.0
+offset_bottom = -390.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.498039)
+
+[node name="Tutorial" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ControlsPC" type="HBoxContainer" parent="Tutorial"]
+visible = false
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/ControlsPC"]
+custom_minimum_size = Vector2(110, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_bbnfi")
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/ControlsPC"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_v3lay")
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/ControlsPC"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_fcbsb")
+
+[node name="Label" type="Label" parent="Tutorial/ControlsPC"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_36r77")
+theme_override_font_sizes/font_size = 24
+text = " - Saltar"
+vertical_alignment = 1
+
+[node name="ControlsAndroid" type="HBoxContainer" parent="Tutorial"]
+visible = false
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="Tutorial/ControlsAndroid"]
+custom_minimum_size = Vector2(110, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_bbnfi")
+
+[node name="TextureRect2" type="TextureRect" parent="Tutorial/ControlsAndroid"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_v3lay")
+
+[node name="TextureRect3" type="TextureRect" parent="Tutorial/ControlsAndroid"]
+custom_minimum_size = Vector2(52, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_fcbsb")
+
+[node name="Label" type="Label" parent="Tutorial/ControlsAndroid"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("1_36r77")
+theme_override_font_sizes/font_size = 24
+text = " - Saltar"
+vertical_alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="Tutorial"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24][text][/font_size][/font][/center]"
+fit_content = true
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 0.368627, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 600.0
+offset_top = -74.0
+offset_bottom = -200.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("1_36r77")
+theme_override_font_sizes/font_size = 60
+text = "Tutorial"
+horizontal_alignment = 1
+vertical_alignment = 1

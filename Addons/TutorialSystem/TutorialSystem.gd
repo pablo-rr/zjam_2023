@@ -2,6 +2,8 @@ class_name TutorialSystem
 extends Area2D
 
 @export var tutorial_ui : Control
+@export var controls : PackedScene
+@export var controls_android : PackedScene
 @export_multiline var tutorial_text : String
 @export_multiline var tutorial_text_android : String
 @export var show_time : float

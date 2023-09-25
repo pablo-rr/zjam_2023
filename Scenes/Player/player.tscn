@@ -20,6 +20,7 @@ size = Vector2(31, 39)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t3v5t"]
 shader = ExtResource("2_sec55")
+shader_parameter/active = true
 shader_parameter/strength = 0.0
 shader_parameter/speed = 1.0
 shader_parameter/angle = 90.0

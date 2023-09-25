@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5bpxl5jb488v"]
+
+[ext_resource type="PackedScene" uid="uid://cgbgpvltx7gti" path="res://Scenes/tutorials/tutorial_base.tscn" id="1_ix3tl"]
+
+[node name="TutorialJump" instance=ExtResource("1_ix3tl")]
+
+[node name="ControlsPC" parent="Tutorial" index="0"]
+visible = true
+
+[node name="TextureRect" parent="Tutorial/ControlsAndroid" index="0"]
+visible = false
+
+[node name="TextureRect2" parent="Tutorial/ControlsAndroid" index="1"]
+visible = false
+
+[node name="Label" parent="Tutorial" index="2"]
+text = "
+
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]Mantén pulsado para llegar más alto[/font_size][/font][/center]"

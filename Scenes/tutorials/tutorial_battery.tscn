@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0e1yhc2cbfmv"]
+
+[ext_resource type="PackedScene" uid="uid://cgbgpvltx7gti" path="res://Scenes/tutorials/tutorial_base.tscn" id="1_8g6vw"]
+
+[node name="TutorialBattery" instance=ExtResource("1_8g6vw")]
+
+[node name="Label" parent="Tutorial" index="2"]
+text = "
+
+
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]La [rainbow]batería[/rainbow] regenera la salud y otorga 10 segundos de [rainbow]energía ilimitada[/rainbow].[/font_size][/font][/center]"

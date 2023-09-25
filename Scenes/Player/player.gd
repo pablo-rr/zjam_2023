@@ -13,6 +13,7 @@ extends CharacterBody2D
 @export var power_up_ui : Control
 @export var pause_ui : Control
 @export var charge_percentage_label : Label
+@export var charge_percentage_border : Label
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -91,9 +92,11 @@ func _physics_process(delta: float) -> void:
 	if(energy_to_regen < energy_to_super_shoot):
 		$SuperShoot.emitting = false
 		$ChargingUp.emitting = true
+		charge_percentage_label.modulate = Color(0, 0.769, 1)
 	else:
 		$SuperShoot.emitting = true
 		$ChargingUp.emitting = false
+		charge_percentage_label.modulate = Color(1, 0, 0.776)
 		
 	if(energy_to_regen < 0.0):
 		$ChargingEnergy.stop()
@@ -107,6 +110,7 @@ func _physics_process(delta: float) -> void:
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.46, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, -80.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, 0.0, 0.09)
+		charge_percentage_label.material.set_shader_parameter("active", true)
 #		$ChargingUp.material.set_shader_parameter("alpha", 1)
 #		$TotallyCharged.material.set_shader_parameter("alpha", 1)
 #		$SuperShoot.material.set_shader_parameter("alpha", 1)
@@ -116,12 +120,10 @@ func _physics_process(delta: float) -> void:
 		$Sprite2D.material.set_shader_parameter("strength", move_toward($Sprite2D.material.get_shader_parameter("strength"), 0.0, 0.5))
 		$MusicNormal.volume_db = lerp($MusicNormal.volume_db, 0.0, 0.09)
 		$MusicPowerUp.volume_db = lerp($MusicPowerUp.volume_db, -80.0, 0.09)
+		charge_percentage_label.material.set_shader_parameter("active", false)
 #		$ChargingUp.material.set_shader_parameter("alpha", 0)
 #		$TotallyCharged.material.set_shader_parameter("alpha", 0)
 #		$SuperShoot.material.set_shader_parameter("alpha", 0)
-	
-	print(charge_percentage)
-	
 	
 	if(charging_energy):
 		if(energy_to_regen < energy_to_super_shoot):
@@ -134,6 +136,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			$ChargingEnergy.pitch_scale = 1.5
 			$TotallyCharged.emitting = true
+			charge_percentage_label.modulate = Color(0.882, 0.784, 0)
 			
 		if(infinite_energy):
 			charge_percentage += delta * energy_charge_fill
@@ -149,6 +152,7 @@ func _physics_process(delta: float) -> void:
 		jump_force_extra = 0.0
 	
 	charge_percentage_label.text = get_percentage_string()
+	charge_percentage_border.text = get_percentage_string()
 
 	if(Input.is_action_just_pressed("ui_jump") and is_on_floor()):
 		$Jump.play(0.0)
@@ -186,7 +190,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func get_percentage_string() -> String:
-	return str(floor(charge_percentage * 100 / 1.73333333333333), "%")
+	return str(ceil(charge_percentage * 100 / 1.73333333333333), "%")
 
 func _on_stamina_system_wasted(ammount) -> void:
 	energy_to_regen += ammount

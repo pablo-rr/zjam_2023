@@ -3,9 +3,10 @@ shader_type canvas_item;
 uniform float alpha = 1.0;
 
 void fragment() {
-	float color_r = sin(TIME * 1.0);
-	float color_g = sin(TIME * 3.0);
-	float color_b = sin(TIME * 5.0);
+	vec4 animated_line_color = vec4(sin(2.0 * 3.14 * 0.5 * TIME),
+							   sin(2.0 * 3.14* 0.5 * TIME + radians(120.0)),
+							    sin(2.0 * 3.14 * 0.5 * TIME + radians(240.0)),
+							   1.0);
 	
-	COLOR = vec4(color_r, color_g, color_b, alpha);
+	COLOR = animated_line_color;
 }

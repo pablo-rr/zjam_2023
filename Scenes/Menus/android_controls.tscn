@@ -1,14 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvjrkbk3sgls0"]
+[gd_scene load_steps=13 format=3 uid="uid://cvjrkbk3sgls0"]
 
 [ext_resource type="Texture2D" uid="uid://c1rq18xbu11mn" path="res://Art/2D/LeftButton.png" id="1_y24dc"]
 [ext_resource type="Texture2D" uid="uid://cxsmm255bgqf0" path="res://Art/2D/LeftButtonDown.png" id="2_mggxs"]
 [ext_resource type="Texture2D" uid="uid://d3jhjpurp8lly" path="res://Art/2D/RightButton.png" id="2_pfxq6"]
-[ext_resource type="Texture2D" uid="uid://dj5rfyhc082cy" path="res://Art/2D/JumpButton.png" id="3_lf1ns"]
 [ext_resource type="Texture2D" uid="uid://c2tqgtusav52k" path="res://Art/2D/RightButtonDown.png" id="4_67uac"]
 [ext_resource type="Texture2D" uid="uid://cpmljerm8exe6" path="res://Art/2D/ChargeButton.png" id="4_wtrf6"]
+[ext_resource type="Texture2D" uid="uid://c5j27nrihuvrs" path="res://Art/2D/ButtonUp.png" id="5_lea7w"]
 [ext_resource type="Texture2D" uid="uid://bl10rxv3mdu0n" path="res://Art/2D/ShootButton.png" id="5_y523h"]
-[ext_resource type="Texture2D" uid="uid://dw1q455ndvaog" path="res://Art/2D/JumpButtonDown.png" id="6_dh47c"]
+[ext_resource type="Texture2D" uid="uid://t1hjdpuvd2j0" path="res://Art/2D/PressedUp.png" id="6_uu8pi"]
 [ext_resource type="Texture2D" uid="uid://dtwj7wyjavgjk" path="res://Art/2D/ShootButtonDown.png" id="9_rm2f3"]
+[ext_resource type="Texture2D" uid="uid://rgfb3hhbj6ck" path="res://Art/2D/PauseButton.png" id="10_tl4t6"]
+[ext_resource type="Texture2D" uid="uid://c4i7dliw22a4f" path="res://Art/2D/PlayButton.png" id="11_es8kt"]
 
 [sub_resource type="GDScript" id="GDScript_fxcjp"]
 script/source = "extends Control
@@ -66,6 +68,11 @@ func _on_shoot_button_down() -> void:
 	event.pressed = true
 	Input.parse_input_event(event)
 	stop_charge()
+	
+func _on_pause_pressed() -> void:
+	var event = InputEventAction.new()
+	event.action =\"ui_pause\"
+	event.pressed = true
 
 
 
@@ -93,7 +100,11 @@ func _on_shoot_button_up() -> void:
 	event.pressed = false
 	Input.parse_input_event(event)
 	
-	
+func _on_pause_released() -> void:
+	var event = InputEventAction.new()
+	event.action =\"ui_pause\"
+	event.pressed = false
+
 	
 func stop_charge() -> void:
 	$Charge.texture_normal = load(\"res://Art/2D/ChargeButton.png\")
@@ -103,14 +114,6 @@ func stop_charge() -> void:
 	charging_pressed = false
 	Input.parse_input_event(event)
 
-
-
-
-func _on_pause_pressed() -> void:
-	var event = InputEventAction.new()
-	event.action =\"ui_pause\"
-	event.pressed = false
-	pass # Replace with function body.
 "
 
 [node name="AndroidControls" type="Control"]
@@ -121,6 +124,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_fxcjp")
+metadata/_edit_lock_ = true
 
 [node name="Left" type="TouchScreenButton" parent="."]
 position = Vector2(133, 488)
@@ -129,6 +133,7 @@ texture_normal = ExtResource("1_y24dc")
 texture_pressed = ExtResource("2_mggxs")
 passby_press = true
 visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Right" type="TouchScreenButton" parent="."]
 position = Vector2(324, 488)
@@ -137,14 +142,16 @@ texture_normal = ExtResource("2_pfxq6")
 texture_pressed = ExtResource("4_67uac")
 passby_press = true
 visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Jump" type="TouchScreenButton" parent="."]
 position = Vector2(899, 543)
 scale = Vector2(4.5, 4.5)
-texture_normal = ExtResource("3_lf1ns")
-texture_pressed = ExtResource("6_dh47c")
+texture_normal = ExtResource("5_lea7w")
+texture_pressed = ExtResource("6_uu8pi")
 passby_press = true
 visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Charge" type="TouchScreenButton" parent="."]
 position = Vector2(967, 410)
@@ -152,6 +159,7 @@ scale = Vector2(4.5, 4.5)
 texture_normal = ExtResource("4_wtrf6")
 passby_press = true
 visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
 position = Vector2(1109, 340)
@@ -160,8 +168,16 @@ texture_normal = ExtResource("5_y523h")
 texture_pressed = ExtResource("9_rm2f3")
 passby_press = true
 visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [node name="Pause" type="TouchScreenButton" parent="."]
+position = Vector2(1170, 20)
+scale = Vector2(4.5, 4.5)
+texture_normal = ExtResource("10_tl4t6")
+texture_pressed = ExtResource("11_es8kt")
+passby_press = true
+visibility_mode = 1
+metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
 [connection signal="released" from="Left" to="." method="_on_left_button_up"]
@@ -174,3 +190,4 @@ visibility_mode = 1
 [connection signal="pressed" from="Shoot" to="." method="_on_shoot_button_down"]
 [connection signal="released" from="Shoot" to="." method="_on_shoot_button_up"]
 [connection signal="pressed" from="Pause" to="." method="_on_pause_pressed"]
+[connection signal="released" from="Pause" to="." method="_on_pause_released"]

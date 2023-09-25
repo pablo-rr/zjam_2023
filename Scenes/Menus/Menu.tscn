@@ -79,6 +79,7 @@ func _on_pressed() -> void:
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_702c7"]
 shader = ExtResource("3_nlr52")
+shader_parameter/active = true
 shader_parameter/strength = 0.7
 shader_parameter/speed = 2.0
 shader_parameter/angle = 149.663
