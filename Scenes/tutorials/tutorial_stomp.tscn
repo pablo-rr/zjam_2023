@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://840d5wbx45m6"]
+[gd_scene load_steps=2 format=3 uid="uid://bi0jf6f4ja4as"]
 
-[ext_resource type="PackedScene" uid="uid://cgbgpvltx7gti" path="res://Scenes/tutorials/tutorial_base.tscn" id="1_uo2m7"]
+[ext_resource type="PackedScene" uid="uid://cgbgpvltx7gti" path="res://Scenes/tutorials/tutorial_base.tscn" id="1_7boml"]
 
-[node name="TutorialRay" instance=ExtResource("1_uo2m7")]
+[node name="TutorialStomp" instance=ExtResource("1_7boml")]
 
 [node name="TextureRect" parent="Tutorial/ControlsPC" index="0"]
 visible = false
@@ -32,5 +32,4 @@ visible = false
 text = "
 
 
-
-[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]El rayo azul roba [color=#00E5FF]energía[/color], evita tocarlo.[/font_size][/font][/center]"
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]Algunos enemigos solo pueden ser derrotados [color=red]saltandoles encima[/color].[/font_size][/font][/center]"

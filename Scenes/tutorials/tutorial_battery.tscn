@@ -8,4 +8,4 @@
 text = "
 
 
-[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]La [rainbow]batería[/rainbow] regenera la salud y otorga 10 segundos de [rainbow]energía ilimitada[/rainbow].[/font_size][/font][/center]"
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]La [rainbow freq=0.8 sat=0.4]batería[/rainbow] regenera la salud y otorga 10 segundos de [rainbow freq=0.8 sat=0.4]energía ilimitada[/rainbow].[/font_size][/font][/center]"

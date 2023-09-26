@@ -16,4 +16,4 @@ visible = false
 [node name="Label" parent="Tutorial" index="2"]
 text = "
 
-[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]Mantén pulsado para llegar más alto[/font_size][/font][/center]"
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]Mantén pulsado para llegar más alto.[/font_size][/font][/center]"

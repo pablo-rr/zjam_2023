@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://s3v0qc8oc8ru"]
+
+[ext_resource type="PackedScene" uid="uid://cgbgpvltx7gti" path="res://Scenes/tutorials/tutorial_base.tscn" id="1_r3o4u"]
+[ext_resource type="Texture2D" uid="uid://2ldy07e205dg" path="res://Art/2D/ButtonAlt.png" id="2_f4s0a"]
+[ext_resource type="Texture2D" uid="uid://ch1feyn6on77y" path="res://Art/2D/ButtonI.png" id="3_2x42d"]
+[ext_resource type="Texture2D" uid="uid://0enn0qa7a4n8" path="res://Art/2D/ButtonF.png" id="4_xivly"]
+[ext_resource type="Texture2D" uid="uid://bl10rxv3mdu0n" path="res://Art/2D/ShootButton.png" id="5_l2pei"]
+
+[node name="TutorialShoot" instance=ExtResource("1_r3o4u")]
+
+[node name="TextureRect" parent="Tutorial/ControlsPC" index="0"]
+custom_minimum_size = Vector2(78, 52)
+texture = ExtResource("2_f4s0a")
+
+[node name="TextureRect2" parent="Tutorial/ControlsPC" index="1"]
+texture = ExtResource("3_2x42d")
+
+[node name="TextureRect3" parent="Tutorial/ControlsPC" index="2"]
+texture = ExtResource("4_xivly")
+
+[node name="Label" parent="Tutorial/ControlsPC" index="3"]
+text = " - Disparar"
+
+[node name="ControlsAndroid" parent="Tutorial" index="1"]
+visible = true
+
+[node name="TextureRect" parent="Tutorial/ControlsAndroid" index="0"]
+custom_minimum_size = Vector2(52, 52)
+texture = ExtResource("5_l2pei")
+
+[node name="TextureRect2" parent="Tutorial/ControlsAndroid" index="1"]
+visible = false
+
+[node name="TextureRect3" parent="Tutorial/ControlsAndroid" index="2"]
+visible = false
+
+[node name="Label" parent="Tutorial/ControlsAndroid" index="3"]
+text = " - Disparar"
+
+[node name="Label" parent="Tutorial" index="2"]
+text = "
+[center][font=\"res://Resources/Fonts/PixelEmulator-xq08.ttf\"][font_size=24]Dispararar consume [color=#00E5FF]energía[/color].
+Algunos enemigos solo pueden ser derrotados al ser [color=#00E5FF]disparados[/color].[/font_size][/font][/center]"

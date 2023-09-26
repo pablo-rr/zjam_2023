@@ -132,14 +132,16 @@ func _physics_process(delta: float) -> void:
 			if(!infinite_energy):
 				$StaminaSystem.waste(delta * energy_charge_fill)
 				charge_percentage += delta * energy_charge_fill
+				$ChargingEnergy.pitch_scale = 1 + (charge_percentage / 5)
 			jump_force_extra += delta * jump_force_extra_fill
 		else:
-			$ChargingEnergy.pitch_scale = 1.5
+			$ChargingEnergy.pitch_scale = lerp($ChargingEnergy.pitch_scale, 1.5, 0.3)
 			$TotallyCharged.emitting = true
 			charge_percentage_label.modulate = Color(0.882, 0.784, 0)
 			
 		if(infinite_energy):
 			charge_percentage += delta * energy_charge_fill
+			$ChargingEnergy.pitch_scale = 1 + (charge_percentage / 8)
 	else:
 		charge_percentage = 0
 		$ChargingEnergy.pitch_scale = 1.0

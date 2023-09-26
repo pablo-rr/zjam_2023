@@ -3,11 +3,31 @@
 [sub_resource type="GDScript" id="GDScript_0il0x"]
 script/source = "extends Control
 
-func tutorial_text(text:String,show_time:float) -> void:
-	$ColorRect/Label.text = text
+var previous_tutorial : Control
+
+func show_tutorial(tutorial : PackedScene, has_buttons : bool, time : float) -> void:
+	if(previous_tutorial != null):
+		previous_tutorial.queue_free()
+	
+	var instance = tutorial.instantiate()
+	previous_tutorial = instance
+	if(has_buttons):
+		if(OS.get_name() == \"Android\"):
+			instance.get_node(\"Tutorial/ControlsAndroid\").visible = true
+		else:
+			instance.get_node(\"Tutorial/ControlsPC\").visible = true
+	
+	add_child(instance)
+	
+	$AnimationPlayer.animation_finished.connect(Callable(func(anim_name : String) -> void:
+		if(anim_name == \"fade_out\" and instance != null):
+			instance.queue_free()
+	))
+	
 	$AnimationPlayer.play(\"popText\")
-	await(get_tree().create_timer(show_time).timeout)
+	await(get_tree().create_timer(time).timeout)
 	$AnimationPlayer.play(\"fade_out\")
+	
 
 
 "
