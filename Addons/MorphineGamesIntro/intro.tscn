@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dysu14ydospew"]
+[gd_scene load_steps=10 format=3 uid="uid://dysu14ydospew"]
 
 [ext_resource type="FontFile" uid="uid://cvmh8f3li1gp" path="res://Addons/MorphineGamesIntro/Fonts/Boyfrend.ttf" id="1_goiqj"]
+[ext_resource type="PackedScene" uid="uid://hswleah07eoa" path="res://Scenes/Menus/Menu.tscn" id="1_r7adq"]
 [ext_resource type="FontFile" uid="uid://3nub8ekhevi1" path="res://Addons/MorphineGamesIntro/Fonts/Playball.ttf" id="2_iaoka"]
 [ext_resource type="Texture2D" uid="uid://cgnc13c4ktrqd" path="res://Art/2D/Logotipo_Morphin_Games_Horizontal_PNG_inverted.png" id="3_h7ew7"]
 [ext_resource type="AudioStream" uid="uid://dyo8haoehxjkh" path="res://Addons/MorphineGamesIntro/Audio/MorphineGames.wav" id="3_vspvk"]
@@ -8,6 +9,7 @@
 [sub_resource type="GDScript" id="GDScript_tibbo"]
 script/source = "extends Control
 
+@export var intro :PackedScene
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,7 +20,7 @@ func _ready() -> void:
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if(anim_name == \"intro\"):
-		SceneTransitioner.transition_to_scene(\"res://Scenes/Menus/Menu.tscn\", 0.05, 0.05)
+		SceneTransitioner.transition_to_scene(intro, 0.05, 0.05)
 	pass # Replace with function body.
 "
 
@@ -155,6 +157,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_tibbo")
+intro = ExtResource("1_r7adq")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

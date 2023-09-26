@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvefnvjphwfio"]
+
+[ext_resource type="Texture2D" uid="uid://dymoqao5815gk" path="res://Art/2D/Portal-export.png" id="1_yogps"]
+
+[sub_resource type="GDScript" id="GDScript_tfr8d"]
+script/source = "extends Area2D
+
+@export var level : PackedScene
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_body_entered(body: Node2D) -> void:
+	print(\"PasasNIvel\")
+	if(body.name == \"Player\"):
+		SceneTransitioner.transition_to_scene(level)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_th0mo"]
+size = Vector2(58, 107)
+
+[node name="Portals" type="Area2D"]
+script = SubResource("GDScript_tfr8d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 26.5)
+shape = SubResource("RectangleShape2D_th0mo")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_yogps")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
