@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bk5dnp8djg5h7"]
+[gd_scene load_steps=43 format=3 uid="uid://bk5dnp8djg5h7"]
 
 [ext_resource type="Texture2D" uid="uid://c14r1p7t5h63e" path="res://Art/2D/Energia.png" id="1_75gvt"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/PawnTextureProgressBar.gd" id="1_kwgx5"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c0e1yhc2cbfmv" path="res://Scenes/tutorials/tutorial_battery.tscn" id="28_eph6d"]
 [ext_resource type="PackedScene" uid="uid://s3v0qc8oc8ru" path="res://Scenes/tutorials/tutorial_shoot.tscn" id="28_w0fj4"]
 [ext_resource type="PackedScene" uid="uid://dloh513adn70d" path="res://Scenes/Levels/level2.tscn" id="31_r1klw"]
+[ext_resource type="Texture2D" uid="uid://ckl3vuvx4fudh" path="res://Art/2D/Spike.png" id="32_58uoy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0u4u"]
 shader = ExtResource("4_dyt4q")
@@ -112,6 +113,17 @@ size = Vector2(160, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q6hxj"]
 size = Vector2(160, 252)
+
+[sub_resource type="GDScript" id="GDScript_svjk4"]
+script/source = "extends Area2D
+
+func _on_body_entered(body: Node2D) -> void:
+	if(body.name == \"Player\"):
+		SceneTransitioner.transition_to_scene(\"res://Scenes/Menus/credits.tscn\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_svx4f"]
+size = Vector2(304, 288)
 
 [node name="TestingZone" type="Node2D"]
 
@@ -517,66 +529,6 @@ rotation = -3.14159
 position = Vector2(7008, -1584)
 rotation = -3.14159
 
-[node name="Electricity32" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(7439, -464)
-
-[node name="Electricity33" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(7439, -432)
-
-[node name="Electricity34" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(7439, -400)
-
-[node name="Electricity35" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(7439, -368)
-
-[node name="Electricity36" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8176, -464)
-
-[node name="Electricity37" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8176, -496)
-
-[node name="Electricity38" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8176, -528)
-
-[node name="Electricity39" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8272, -464)
-
-[node name="Electricity40" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8272, -496)
-
-[node name="Electricity41" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8272, -528)
-
-[node name="Electricity42" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8176, -560)
-
-[node name="Electricity43" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8272, -560)
-
-[node name="Electricity44" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8368, -464)
-
-[node name="Electricity45" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8368, -496)
-
-[node name="Electricity46" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8368, -528)
-
-[node name="Electricity47" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8368, -560)
-
-[node name="Electricity48" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8464, -464)
-
-[node name="Electricity49" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8464, -496)
-
-[node name="Electricity50" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8464, -528)
-
-[node name="Electricity51" parent="DeadlyStuff" instance=ExtResource("6_6tsnf")]
-position = Vector2(8464, -560)
-
 [node name="Checkpoints" type="Node2D" parent="."]
 position = Vector2(976, 432)
 
@@ -743,6 +695,100 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Tutorials/TS_Shoot"]
 shape = SubResource("RectangleShape2D_8b42k")
 
+[node name="GoToCredits" type="Area2D" parent="."]
+position = Vector2(7728, -1664)
+script = SubResource("GDScript_svjk4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoToCredits"]
+position = Vector2(56, 16)
+shape = SubResource("RectangleShape2D_svx4f")
+
+[node name="Electricity" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(7439, -464)
+
+[node name="Electricity2" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(7439, -432)
+
+[node name="Electricity3" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(7439, -400)
+
+[node name="Electricity4" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(7439, -368)
+
+[node name="Spike" type="Sprite2D" parent="."]
+position = Vector2(8207, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Spike2" type="Sprite2D" parent="."]
+position = Vector2(8242, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Spike3" type="Sprite2D" parent="."]
+position = Vector2(8305, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Spike4" type="Sprite2D" parent="."]
+position = Vector2(8336, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Spike5" type="Sprite2D" parent="."]
+position = Vector2(8401, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Spike6" type="Sprite2D" parent="."]
+position = Vector2(8431, -368)
+texture = ExtResource("32_58uoy")
+
+[node name="Electricity5" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8176, -464)
+
+[node name="Electricity6" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8176, -496)
+
+[node name="Electricity7" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8176, -528)
+
+[node name="Electricity8" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8272, -464)
+
+[node name="Electricity9" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8272, -496)
+
+[node name="Electricity10" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8272, -528)
+
+[node name="Electricity11" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8176, -560)
+
+[node name="Electricity12" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8272, -560)
+
+[node name="Electricity13" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8368, -464)
+
+[node name="Electricity14" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8368, -496)
+
+[node name="Electricity15" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8368, -528)
+
+[node name="Electricity16" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8368, -560)
+
+[node name="Electricity17" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8464, -464)
+
+[node name="Electricity18" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8464, -496)
+
+[node name="Electricity19" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8464, -528)
+
+[node name="Electricity20" parent="." instance=ExtResource("6_6tsnf")]
+position = Vector2(8464, -560)
+
 [node name="Portals2" parent="." instance=ExtResource("23_ttmio")]
-position = Vector2(8864, -528)
+position = Vector2(8827, -528)
 level = ExtResource("31_r1klw")
+
+[connection signal="body_entered" from="GoToCredits" to="GoToCredits" method="_on_body_entered"]

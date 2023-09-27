@@ -1,7 +1,8 @@
-[gd_scene load_steps=24 format=3 uid="uid://nbj7qkmin0o8"]
+[gd_scene load_steps=26 format=3 uid="uid://nbj7qkmin0o8"]
 
 [ext_resource type="Script" path="res://Scenes/Player/player.gd" id="1_dnyhb"]
 [ext_resource type="Texture2D" uid="uid://deok0vwhe4sic" path="res://Art/2D/Player.png" id="2_axwuq"]
+[ext_resource type="Shader" path="res://Shaders/2D/Teleporter.gdshader" id="2_olll1"]
 [ext_resource type="Shader" path="res://Shaders/2D/MovingRainbow.gdshader" id="2_sec55"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/StaminaSystem.gd" id="3_vrlnq"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/HealthSystem.gd" id="4_vlpak"]
@@ -24,6 +25,13 @@ shader_parameter/active = true
 shader_parameter/strength = 0.0
 shader_parameter/speed = 1.0
 shader_parameter/angle = 90.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0b8pa"]
+shader = ExtResource("2_olll1")
+shader_parameter/progress = 0.0
+shader_parameter/noise_desnity = 1.0
+shader_parameter/beam_size = 0.08
+shader_parameter/color = Color(0, 1.02, 1.2, 1)
 
 [sub_resource type="Animation" id="Animation_u2oyi"]
 resource_name = "Idle"
@@ -141,6 +149,12 @@ shape = SubResource("RectangleShape2D_5wwvd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_t3v5t")
+texture = ExtResource("2_axwuq")
+hframes = 4
+
+[node name="Sprite2DPortal" type="Sprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_0b8pa")
 texture = ExtResource("2_axwuq")
 hframes = 4
 

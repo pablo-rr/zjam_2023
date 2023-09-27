@@ -7,39 +7,30 @@ script/source = "extends Area2D
 
 @export var level : PackedScene
 
-var player : CharacterBody2D = null
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	set_process(false)
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	player.get_node(\"Sprite2DPortal\").material.set_shader_parameter(\"progress\", player.get_node(\"Sprite2DPortal\").material.get_shader_parameter(\"progress\") + delta)
-	if(player.get_node(\"Sprite2DPortal\").material.get_shader_parameter(\"progress\") >= 1):
-		SceneTransitioner.transition_to_scene(level)
-		set_process(false)
+	pass
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if(body.name == \"Player\"):
-		body.get_node(\"Sprite2D\").visible = false
-		body.get_node(\"Sprite2DPortal\").visible = true
-		body.set_process(false)
-		body.set_physics_process(false)
-		player = body
-		set_process(true)
-		
+		pass
+#		SceneTransitioner.transition_to_scene(level)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_th0mo"]
-size = Vector2(4, 15)
+size = Vector2(4, 107)
 
 [node name="Portals" type="Area2D"]
 script = SubResource("GDScript_tfr8d")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(12, 62)
+position = Vector2(0, 26.5)
 shape = SubResource("RectangleShape2D_th0mo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
