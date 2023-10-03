@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://ueqpfsotcw3d"]
+
+[ext_resource type="Texture2D" uid="uid://blqw6pi5kdn53" path="res://Art/2D/A.png" id="1_t3kgr"]
+
+[sub_resource type="GDScript" id="GDScript_whwfr"]
+script/source = "class_name Letter2D 
+extends Node2D
+
+#@export var selected_option : int = 0
+@export_enum(\"A\", \"B\", \"C\", \"K\",\"O\",\"R\") var letter : String
+
+var letras : OptionButton
+var sLetra : Sprite2D
+
+var sprite_dict :={
+	\"A\" : preload(\"res://Art/2D/A.png\"),
+	\"B\" : preload(\"res://Art/2D/B.png\"),
+	\"C\" : preload(\"res://Art/2D/C.png\"),
+	\"K\" : preload(\"res://Art/2D/K.png\"),
+	\"O\" : preload(\"res://Art/2D/O.png\"),
+	\"R\" : preload(\"res://Art/2D/R.png\"),
+	
+}
+
+func _ready() -> void:
+
+	$Sprite.texture = sprite_dict[letter]
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	print(\"Letra recogida\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3maa"]
+size = Vector2(46, 45)
+
+[node name="Letter2D" type="Node2D"]
+script = SubResource("GDScript_whwfr")
+letter = "A"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_w3maa")
+
+[node name="Sprite" type="Sprite2D" parent="Area2D/CollisionShape2D"]
+position = Vector2(0, -0.5)
+texture = ExtResource("1_t3kgr")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
