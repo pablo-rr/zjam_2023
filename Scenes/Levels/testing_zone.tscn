@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://bk5dnp8djg5h7"]
+[gd_scene load_steps=41 format=3 uid="uid://bk5dnp8djg5h7"]
 
 [ext_resource type="Texture2D" uid="uid://c14r1p7t5h63e" path="res://Art/2D/Energia.png" id="1_75gvt"]
 [ext_resource type="Script" path="res://Addons/PawnFunctionality/PawnTextureProgressBar.gd" id="1_kwgx5"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c0e1yhc2cbfmv" path="res://Scenes/tutorials/tutorial_battery.tscn" id="28_eph6d"]
 [ext_resource type="PackedScene" uid="uid://s3v0qc8oc8ru" path="res://Scenes/tutorials/tutorial_shoot.tscn" id="28_w0fj4"]
 [ext_resource type="PackedScene" uid="uid://dloh513adn70d" path="res://Scenes/Levels/level2.tscn" id="31_r1klw"]
+[ext_resource type="Script" path="res://letter2d.gd" id="32_21v2h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_w0u4u"]
 shader = ExtResource("4_dyt4q")
@@ -746,3 +747,8 @@ shape = SubResource("RectangleShape2D_8b42k")
 [node name="Portals2" parent="." instance=ExtResource("23_ttmio")]
 position = Vector2(8864, -528)
 level = ExtResource("31_r1klw")
+
+[node name="Letter2D" type="Node2D" parent="."]
+position = Vector2(4010, -126)
+script = ExtResource("32_21v2h")
+letter = "R"
