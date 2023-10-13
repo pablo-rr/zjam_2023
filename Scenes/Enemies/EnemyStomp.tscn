@@ -30,9 +30,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k7w4c"]
-radius = 16.0
-height = 64.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ml7jd"]
+size = Vector2(26, 45)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tblr0"]
 shader = ExtResource("3_3md2x")
@@ -42,7 +41,7 @@ shader_parameter/shine_size = 0.1
 shader_parameter/shine_angle = 45.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oyrkv"]
-size = Vector2(68, 29)
+size = Vector2(50, 19)
 
 [sub_resource type="Animation" id="Animation_dp5os"]
 length = 0.001
@@ -147,8 +146,9 @@ _data = {
 script = SubResource("GDScript_3orcb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.499984, 3)
 rotation = -1.57079
-shape = SubResource("CapsuleShape2D_k7w4c")
+shape = SubResource("RectangleShape2D_ml7jd")
 
 [node name="EnemyController" type="Node" parent="." node_paths=PackedStringArray("fall_raycast", "wall_raycast", "player_collision_area", "sprite", "health_system")]
 script = ExtResource("1_36yhy")
@@ -160,7 +160,7 @@ health_system = NodePath("../HealthSystem")
 damage_on_stomp = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(16, 16)
+position = Vector2(29, 16)
 target_position = Vector2(0, 16)
 
 [node name="RayCast2D2" type="RayCast2D" parent="."]
@@ -183,7 +183,7 @@ flip_h = true
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -4.5)
+position = Vector2(0, -9.5)
 shape = SubResource("RectangleShape2D_oyrkv")
 
 [node name="HealthSystem" type="Node" parent="." node_paths=PackedStringArray("blink_node")]

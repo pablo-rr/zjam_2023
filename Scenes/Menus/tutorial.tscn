@@ -14,7 +14,9 @@ func show_tutorial(tutorial : PackedScene, has_buttons : bool, time : float) -> 
 	if(has_buttons):
 		if(OS.get_name() == \"Android\"):
 			instance.get_node(\"Tutorial/ControlsAndroid\").visible = true
+			instance.get_node(\"Tutorial/ControlsPC\").visible = false
 		else:
+			instance.get_node(\"Tutorial/ControlsAndroid\").visible = false
 			instance.get_node(\"Tutorial/ControlsPC\").visible = true
 	
 	add_child(instance)

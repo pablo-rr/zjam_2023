@@ -38,12 +38,11 @@ func _on_enemy_controller_shot() -> void:
 	$Shoot.play(0.0)
 "
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_55gam"]
-radius = 16.0
-height = 38.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5layw"]
+size = Vector2(25, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_afgdo"]
-size = Vector2(43, 35)
+size = Vector2(26, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cb54u"]
 size = Vector2(384, 224)
@@ -124,7 +123,7 @@ health_system = NodePath("../HealthSystem")
 damage_on_bullet = true
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(16, 16)
+position = Vector2(20, 16)
 target_position = Vector2(0, 16)
 
 [node name="RayCast2D2" type="RayCast2D" parent="."]
@@ -146,14 +145,14 @@ texture = ExtResource("3_salh7")
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1, 4)
+position = Vector2(1.99999, 6.50001)
 rotation = -1.57079
-shape = SubResource("CapsuleShape2D_55gam")
+shape = SubResource("RectangleShape2D_5layw")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1.5, 2.5)
+position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_afgdo")
 
 [node name="AreaDetection" type="Area2D" parent="."]

@@ -22,10 +22,10 @@ func _physics_process(delta: float) -> void:
 		$AnimationPlayer.play("Shake")
 	else:
 		$AnimationPlayer.play("RESET")
-		
-	if(target.speed > 0):
-		movement_offset = move_toward(movement_offset, max_movement_offset, 5)
-	elif(target.speed < 0):
-		movement_offset = move_toward(movement_offset, -max_movement_offset, 5)
+#
+#	if(target.speed > 0):
+#		movement_offset = move_toward(movement_offset, max_movement_offset, 1)
+#	elif(target.speed < 0):
+#		movement_offset = move_toward(movement_offset, -max_movement_offset, 1)
 #	else:
 #		movement_offset = lerp(movement_offset, 0.0, 0.06)

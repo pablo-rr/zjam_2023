@@ -133,7 +133,6 @@ texture_normal = ExtResource("1_y24dc")
 texture_pressed = ExtResource("2_mggxs")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Right" type="TouchScreenButton" parent="."]
 position = Vector2(324, 488)
@@ -142,7 +141,6 @@ texture_normal = ExtResource("2_pfxq6")
 texture_pressed = ExtResource("4_67uac")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Jump" type="TouchScreenButton" parent="."]
 position = Vector2(899, 543)
@@ -151,33 +149,30 @@ texture_normal = ExtResource("5_lea7w")
 texture_pressed = ExtResource("6_uu8pi")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Charge" type="TouchScreenButton" parent="."]
-position = Vector2(967, 410)
+position = Vector2(1109, 341)
 scale = Vector2(4.5, 4.5)
 texture_normal = ExtResource("4_wtrf6")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Shoot" type="TouchScreenButton" parent="."]
-position = Vector2(1109, 340)
+position = Vector2(967, 410)
 scale = Vector2(4.5, 4.5)
 texture_normal = ExtResource("5_y523h")
 texture_pressed = ExtResource("9_rm2f3")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [node name="Pause" type="TouchScreenButton" parent="."]
+visible = false
 position = Vector2(1170, 20)
 scale = Vector2(4.5, 4.5)
 texture_normal = ExtResource("10_tl4t6")
 texture_pressed = ExtResource("11_es8kt")
 passby_press = true
 visibility_mode = 1
-metadata/_edit_lock_ = true
 
 [connection signal="pressed" from="Left" to="." method="_on_left_pressed"]
 [connection signal="released" from="Left" to="." method="_on_left_button_up"]

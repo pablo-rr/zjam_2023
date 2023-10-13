@@ -36,7 +36,7 @@ func _process(delta: float) -> void:
 
 
 func _on_pressed() -> void:
-	SceneTransitioner.transition_to_scene(\"res://Scenes/Levels/testing_zone.tscn\")
+	SceneTransitioner.transition_to_scene(load(\"res://Scenes/Levels/testing_zone.tscn\"))
 	pass # Replace with function body.
 "
 
